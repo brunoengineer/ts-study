@@ -1,0 +1,151 @@
+[
+  {
+    "id": "14-visible",
+    "q": "Assert the element with test id 'slow-message' is visible (web-first).",
+    "a": "await expect(page.getByTestId('slow-message')).toBeVisible();"
+  },
+  {
+    "id": "14-hidden",
+    "q": "Assert the locator `details` is hidden.",
+    "a": "await expect(details).toBeHidden();",
+    "alt": ["await expect(details).not.toBeVisible();"]
+  },
+  {
+    "id": "14-have-text",
+    "q": "Assert the locator `status` has the text 'Complete!'.",
+    "a": "await expect(status).toHaveText('Complete!');"
+  },
+  {
+    "id": "14-have-text-regex",
+    "q": "Assert the test id 'order-number' has a text matching /ORD-\\d+/.",
+    "a": "await expect(page.getByTestId('order-number')).toHaveText(/ORD-\\d+/);"
+  },
+  {
+    "id": "14-contain-text",
+    "q": "Assert the locator `item` contains the text 'Buy milk'.",
+    "a": "await expect(item).toContainText('Buy milk');"
+  },
+  {
+    "id": "14-have-text-array",
+    "q": "Assert the locator `names` has exactly the texts 'Backpack' and 'Onesie', in this order.",
+    "a": "await expect(names).toHaveText(['Backpack', 'Onesie']);"
+  },
+  {
+    "id": "14-value",
+    "q": "Assert the field labelled 'Email' has the value 'sam@qa.shop'.",
+    "a": "await expect(page.getByLabel('Email')).toHaveValue('sam@qa.shop');"
+  },
+  {
+    "id": "14-count",
+    "q": "Assert the test id 'cart-row' matches 2 elements.",
+    "a": "await expect(page.getByTestId('cart-row')).toHaveCount(2);"
+  },
+  {
+    "id": "14-checked",
+    "q": "Assert the locator `terms` is checked.",
+    "a": "await expect(terms).toBeChecked();"
+  },
+  {
+    "id": "14-not-checked",
+    "q": "Assert the locator `terms` is NOT checked.",
+    "a": "await expect(terms).not.toBeChecked();"
+  },
+  {
+    "id": "14-disabled",
+    "q": "Assert the locator `lockedButton` is disabled.",
+    "a": "await expect(lockedButton).toBeDisabled();"
+  },
+  {
+    "id": "14-attribute",
+    "q": "Assert the locator `toggle` has the attribute 'aria-expanded' with the value 'true'.",
+    "a": "await expect(toggle).toHaveAttribute('aria-expanded', 'true');"
+  },
+  {
+    "id": "14-class",
+    "q": "Assert the locator `error` has a class matching the regex /error/.",
+    "a": "await expect(error).toHaveClass(/error/);",
+    "alt": ["await expect(error).toContainClass('error');"]
+  },
+  {
+    "id": "14-focused",
+    "q": "Assert the field labelled 'Email' has the focus.",
+    "a": "await expect(page.getByLabel('Email')).toBeFocused();"
+  },
+  {
+    "id": "14-empty",
+    "q": "Assert the locator `age` is empty.",
+    "a": "await expect(age).toBeEmpty();"
+  },
+  {
+    "id": "14-message",
+    "q": "Assert `cartCount` has the text '1', with the custom message 'cart badge'.",
+    "a": "await expect(cartCount, 'cart badge').toHaveText('1');"
+  },
+  {
+    "id": "14-timeout",
+    "q": "Assert `report` is visible, waiting up to 10 seconds for THIS assertion only.",
+    "a": "await expect(report).toBeVisible({ timeout: 10_000 });",
+    "alt": ["await expect(report).toBeVisible({ timeout: 10000 });"]
+  },
+  {
+    "id": "14-soft",
+    "q": "SOFT assertion: the locator `freeRadio` is checked.",
+    "a": "await expect.soft(freeRadio).toBeChecked();"
+  },
+  {
+    "id": "14-poll",
+    "q": "Poll the async function `getCartCount` until it returns 1 (one line).",
+    "a": "await expect.poll(getCartCount).toBe(1);",
+    "alt": ["await expect.poll(() => getCartCount()).toBe(1);", "await expect.poll(async () => getCartCount()).toBe(1);", "await expect.poll(async () => await getCartCount()).toBe(1);"]
+  },
+  {
+    "id": "14-close-to",
+    "q": "Assert the number `total` is close to 59.98.",
+    "a": "expect(total).toBeCloseTo(59.98);"
+  },
+  {
+    "id": "14-match-object",
+    "q": "Assert the object `product` has at least name 'Backpack' and price 29.99 (extra fields allowed).",
+    "a": "expect(product).toMatchObject({ name: 'Backpack', price: 29.99 });"
+  },
+  {
+    "id": "14-any",
+    "q": "Assert `product` equals an object containing an `id` of any number.",
+    "a": "expect(product).toEqual(expect.objectContaining({ id: expect.any(Number) }));"
+  },
+  {
+    "id": "14-array-containing",
+    "q": "Assert the array `names` contains 'Onesie' and 'Backpack' (any order, other items allowed), using expect.arrayContaining.",
+    "a": "expect(names).toEqual(expect.arrayContaining(['Onesie', 'Backpack']));"
+  },
+  {
+    "id": "14-web-first-vs-generic",
+    "type": "concept",
+    "q": "Web-first vs generic assertions: what's the difference?",
+    "a": "Web-first: actual is a locator/page, needs await, retries until pass or timeout (5 s). Generic: actual is a plain value, no await, checks once. Use web-first for anything on the page."
+  },
+  {
+    "id": "14-flaky-textcontent",
+    "type": "concept",
+    "q": "Why is expect(await locator.textContent()).toBe('Complete!') flaky?",
+    "a": "textContent() reads the text ONCE, maybe before the page updated. Use await expect(locator).toHaveText('Complete!'), which retries."
+  },
+  {
+    "id": "14-poll-vs-topass",
+    "type": "concept",
+    "q": "When do you use expect.poll and when toPass?",
+    "a": "expect.poll: retry a function that RETURNS a value (API, calculation) until a matcher passes. toPass: retry a whole BLOCK of steps/assertions until it stops throwing (always give it a timeout)."
+  },
+  {
+    "id": "14-soft-when",
+    "type": "concept",
+    "q": "When is expect.soft a good idea, and when not?",
+    "a": "Good: many independent checks on one page (you want to see all failures). Not: when the next steps depend on the check (the test would fail later with a confusing error)."
+  },
+  {
+    "id": "14-err-missing-await",
+    "type": "concept",
+    "q": "A web-first assertion without await: what happens?",
+    "a": "The test does not wait for it. It moves on (or ends) immediately, and the assertion may fail later with a confusing error, or not count at all. Always write await expect(locator)..."
+  }
+]

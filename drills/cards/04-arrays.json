@@ -1,0 +1,148 @@
+[
+  {
+    "id": "04-declare-string-array",
+    "q": "Declare a constant `users`, of type string array, with 'standard_user' and 'admin'.",
+    "a": "const users: string[] = ['standard_user', 'admin'];",
+    "alt": ["const users: Array<string> = ['standard_user', 'admin'];"],
+    "note": "Read it: constant users, of type string array."
+  },
+  {
+    "id": "04-empty-array",
+    "q": "Declare an EMPTY array `cart` that will hold strings.",
+    "a": "const cart: string[] = [];",
+    "alt": ["const cart: Array<string> = [];"]
+  },
+  {
+    "id": "04-generic-array",
+    "q": "Declare a constant `prices` of type Array<number> (the generic way) with 29.99 and 9.99.",
+    "a": "const prices: Array<number> = [29.99, 9.99];"
+  },
+  {
+    "id": "04-last-item",
+    "q": "Get the LAST item of the array `names` (with .at).",
+    "a": "names.at(-1)",
+    "alt": ["names[names.length - 1]"]
+  },
+  {
+    "id": "04-push",
+    "q": "Add 'Backpack' to the end of the array `cart`.",
+    "a": "cart.push('Backpack');"
+  },
+  {
+    "id": "04-for-of",
+    "q": "Write the first line of a for...of loop over `quantities`, calling each item `quantity`.",
+    "a": "for (const quantity of quantities) {"
+  },
+  {
+    "id": "04-map-upper",
+    "q": "Create `upperNames`: every item of `names` in upper case (map).",
+    "a": "const upperNames = names.map((name) => name.toUpperCase());"
+  },
+  {
+    "id": "04-filter",
+    "q": "Create `cheap`: only the items of `prices` under 20 (filter).",
+    "a": "const cheap = prices.filter((price) => price < 20);"
+  },
+  {
+    "id": "04-find",
+    "q": "Create `shirt`: the first item of `names` that includes 'T-Shirt' (find).",
+    "a": "const shirt = names.find((name) => name.includes('T-Shirt'));"
+  },
+  {
+    "id": "04-some",
+    "q": "Write the expression: is SOME code in `statusCodes` 400 or more?",
+    "a": "statusCodes.some((code) => code >= 400)"
+  },
+  {
+    "id": "04-every",
+    "q": "Assert that EVERY item of `prices` is greater than 0.",
+    "a": "expect(prices.every((price) => price > 0)).toBe(true);"
+  },
+  {
+    "id": "04-reduce-sum",
+    "q": "Create `total`: the sum of all `prices` with reduce (starting at 0).",
+    "a": "const total = prices.reduce((sum, price) => sum + price, 0);"
+  },
+  {
+    "id": "04-sort-numbers",
+    "q": "Create `sorted`: a COPY of `prices` sorted from low to high.",
+    "a": "const sorted = [...prices].sort((a, b) => a - b);"
+  },
+  {
+    "id": "04-assert-sorted",
+    "q": "Assert that the array `names` is sorted A to Z (compare it with a sorted copy).",
+    "a": "expect(names).toEqual([...names].sort());"
+  },
+  {
+    "id": "04-assert-sorted-prices",
+    "q": "Assert that `prices` is sorted from low to high.",
+    "a": "expect(prices).toEqual([...prices].sort((a, b) => a - b));"
+  },
+  {
+    "id": "04-to-contain",
+    "q": "Assert that the array `names` contains 'Backpack'.",
+    "a": "expect(names).toContain('Backpack');"
+  },
+  {
+    "id": "04-to-have-length",
+    "q": "Assert that the array `names` has 6 items.",
+    "a": "expect(names).toHaveLength(6);",
+    "alt": ["expect(names.length).toBe(6);"]
+  },
+  {
+    "id": "04-join",
+    "q": "Turn the array `names` into one string, separated by ', '.",
+    "a": "names.join(', ')"
+  },
+  {
+    "id": "04-destructure",
+    "q": "With array destructuring, create `username` and `password` from the array `credentials`.",
+    "a": "const [username, password] = credentials;"
+  },
+  {
+    "id": "04-max-spread",
+    "q": "Get the biggest number in the array `prices` (Math.max + spread).",
+    "a": "Math.max(...prices)"
+  },
+  {
+    "id": "04-parse-price-texts",
+    "q": "Create `prices` from `priceTexts` (like '$29.99'): remove '$' and parseFloat each one.",
+    "a": "const prices = priceTexts.map((text) => parseFloat(text.replace('$', '')));",
+    "alt": ["const prices = priceTexts.map((text) => Number(text.replace('$', '')));"]
+  },
+  {
+    "id": "04-filter-map-chain",
+    "q": "Create `inStockNames`: the names of the `products` with stock > 0 (filter, then map).",
+    "a": "const inStockNames = products.filter((product) => product.stock > 0).map((product) => product.name);"
+  },
+  {
+    "id": "04-tobe-vs-toequal",
+    "type": "concept",
+    "q": "Why does expect(['a']).toBe(['a']) fail? What do you use?",
+    "a": "toBe checks it is the SAME array in memory; two arrays created separately are different. Use toEqual to compare the content."
+  },
+  {
+    "id": "04-sort-gotchas",
+    "type": "concept",
+    "q": "Two sort() gotchas?",
+    "a": "1) Without a compare function, numbers are sorted as text ([1, 10, 100, 9]); use (a, b) => a - b. 2) sort() changes the original; sort a copy: [...list].sort()."
+  },
+  {
+    "id": "04-map-filter-find",
+    "type": "concept",
+    "q": "map vs filter vs find: what does each give back?",
+    "a": "map: a new array of the same length (each item transformed). filter: a new array with the items whose callback returned true. find: the FIRST matching item itself (or undefined)."
+  },
+  {
+    "id": "04-const-array",
+    "type": "concept",
+    "q": "Can you push into an array declared with const?",
+    "a": "Yes. const means you can't assign a different array to the variable (cart = []), but the content can change (push, pop, sort)."
+  },
+  {
+    "id": "04-err-possibly-undefined",
+    "type": "concept",
+    "q": "After `const first = names.find(...)`, `first.length` gives \"'first' is possibly 'undefined'.\" Why?",
+    "a": "find returns undefined when nothing matches, so its type is string | undefined. Check it first, use first?.length, or assert it with expect."
+  }
+]

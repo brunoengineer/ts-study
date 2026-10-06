@@ -1,0 +1,25 @@
+{
+  "name": "ts-study",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Learn TypeScript by writing Playwright tests: exercises, drills and katas.",
+  "type": "module",
+  "scripts": {
+    "app": "node practice-app/server.mjs",
+    "check": "node scripts/check.mjs",
+    "solution": "node scripts/check.mjs --solution",
+    "progress": "node scripts/progress.mjs",
+    "drill": "node scripts/drill.mjs",
+    "kata": "playwright test --project=katas",
+    "play": "tsx scratch/playground.ts",
+    "typecheck": "tsc --noEmit",
+    "ui": "playwright test --ui",
+    "report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^26.6.4",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "id": "00-import",
+    "q": "Write the line that imports `test` and `expect` from Playwright.",
+    "a": "import { test, expect } from '@playwright/test';",
+    "hint": "import { ... } from '...';",
+    "note": "The first line of almost every test file you will ever write."
+  },
+  {
+    "id": "00-test-open",
+    "q": "Write the FIRST line of a test called 'adds numbers' (just the opening line, ending with {).",
+    "a": "test('adds numbers', () => {",
+    "alt": ["test('adds numbers', async () => {"],
+    "hint": "test('name', () => {",
+    "note": "test( name , function ) -> the function is an arrow: () => { ... }"
+  },
+  {
+    "id": "00-expect-tobe",
+    "q": "Assert that `result` is 4.",
+    "a": "expect(result).toBe(4);",
+    "note": "expect(ACTUAL).toBe(EXPECTED)"
+  },
+  {
+    "id": "00-expect-not",
+    "q": "Assert that `status` is NOT 'failed'.",
+    "a": "expect(status).not.toBe('failed');",
+    "note": ".not goes between expect(...) and the matcher."
+  },
+  {
+    "id": "00-expect-length",
+    "q": "Assert that the array `steps` has 3 items.",
+    "a": "expect(steps).toHaveLength(3);"
+  },
+  {
+    "id": "00-const-string",
+    "q": "Create a constant called `tool` with the text Playwright.",
+    "a": "const tool = 'Playwright';",
+    "alt": ["const tool: string = 'Playwright';"]
+  },
+  {
+    "id": "00-run-check",
+    "q": "Which command checks the exercises of module 03?",
+    "a": "npm run check 03"
+  },
+  {
+    "id": "00-run-drill",
+    "q": "Which command starts your daily syntax drill?",
+    "a": "npm run drill"
+  },
+  {
+    "id": "00-expected-received",
+    "type": "concept",
+    "q": "In a failing test, what is the difference between 'Expected' and 'Received'?",
+    "a": "Expected = the value you wrote in the matcher (what it SHOULD be). Received = the value your code really produced (what it IS)."
+  },
+  {
+    "id": "00-four-types",
+    "type": "concept",
+    "q": "Name the 4 exercise types and their emojis.",
+    "a": "🔮 Predict (fill the ___), ✍️ Write (write code, delete todo()), 🐛 Fix (find the bug), 🧪 Assert (write the expect)."
+  }
+]

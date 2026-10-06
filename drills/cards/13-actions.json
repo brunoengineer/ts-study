@@ -1,0 +1,154 @@
+[
+  {
+    "id": "13-click",
+    "q": "Click the button named 'Submit'.",
+    "a": "await page.getByRole('button', { name: 'Submit' }).click();"
+  },
+  {
+    "id": "13-dblclick",
+    "q": "Double-click the locator `row`.",
+    "a": "await row.dblclick();"
+  },
+  {
+    "id": "13-rightclick",
+    "q": "Right-click the locator `row`.",
+    "a": "await row.click({ button: 'right' });"
+  },
+  {
+    "id": "13-fill",
+    "q": "Fill the field labelled 'Email' with 'sam@qa.shop'.",
+    "a": "await page.getByLabel('Email').fill('sam@qa.shop');"
+  },
+  {
+    "id": "13-fill-number",
+    "q": "Fill the field labelled 'Age' with 30.",
+    "a": "await page.getByLabel('Age').fill('30');",
+    "note": "fill always takes a string."
+  },
+  {
+    "id": "13-clear",
+    "q": "Empty the locator `comments`.",
+    "a": "await comments.clear();",
+    "alt": ["await comments.fill('');"]
+  },
+  {
+    "id": "13-press-sequentially",
+    "q": "Type 'shirt' key by key into the locator `search`.",
+    "a": "await search.pressSequentially('shirt');"
+  },
+  {
+    "id": "13-press-enter",
+    "q": "Press Enter in the locator `newTodo`.",
+    "a": "await newTodo.press('Enter');"
+  },
+  {
+    "id": "13-keyboard-press",
+    "q": "Press Tab on the page (wherever the focus is).",
+    "a": "await page.keyboard.press('Tab');"
+  },
+  {
+    "id": "13-focus",
+    "q": "Put the focus on the locator `email` (no click).",
+    "a": "await email.focus();"
+  },
+  {
+    "id": "13-check",
+    "q": "Check the checkbox named 'I agree to the terms'.",
+    "a": "await page.getByRole('checkbox', { name: 'I agree to the terms' }).check();"
+  },
+  {
+    "id": "13-uncheck",
+    "q": "Uncheck the locator `newsletter`.",
+    "a": "await newsletter.uncheck();"
+  },
+  {
+    "id": "13-setchecked",
+    "q": "Set the locator `newsletter` to the boolean variable `wantsNewsletter`.",
+    "a": "await newsletter.setChecked(wantsNewsletter);"
+  },
+  {
+    "id": "13-radio",
+    "q": "Select the radio button named 'Pro'.",
+    "a": "await page.getByRole('radio', { name: 'Pro' }).check();"
+  },
+  {
+    "id": "13-select-value",
+    "q": "In the locator `country`, select the option with the VALUE 'br'.",
+    "a": "await country.selectOption('br');",
+    "alt": ["await country.selectOption({ value: 'br' });"]
+  },
+  {
+    "id": "13-select-label",
+    "q": "In the locator `country`, select the option with the LABEL 'Japan'.",
+    "a": "await country.selectOption({ label: 'Japan' });"
+  },
+  {
+    "id": "13-hover",
+    "q": "Hover the button named 'Hover me'.",
+    "a": "await page.getByRole('button', { name: 'Hover me' }).hover();"
+  },
+  {
+    "id": "13-upload-buffer",
+    "q": "Upload to the locator `upload` a file made in memory: name 'a.txt', mimeType 'text/plain', content 'hi'.",
+    "a": "await upload.setInputFiles({ name: 'a.txt', mimeType: 'text/plain', buffer: Buffer.from('hi') });"
+  },
+  {
+    "id": "13-dialog-accept",
+    "q": "Make the page accept the NEXT dialog (write the listener).",
+    "a": "page.once('dialog', (dialog) => dialog.accept());",
+    "alt": ["page.once('dialog', dialog => dialog.accept());"]
+  },
+  {
+    "id": "13-dialog-prompt",
+    "q": "Make the page answer the NEXT prompt with 'Bruno'.",
+    "a": "page.once('dialog', (dialog) => dialog.accept('Bruno'));",
+    "alt": ["page.once('dialog', dialog => dialog.accept('Bruno'));"]
+  },
+  {
+    "id": "13-dialog-dismiss",
+    "q": "Make the page click Cancel on the NEXT dialog.",
+    "a": "page.once('dialog', (dialog) => dialog.dismiss());",
+    "alt": ["page.once('dialog', dialog => dialog.dismiss());"]
+  },
+  {
+    "id": "13-popup-start",
+    "q": "First step of catching a new tab: start waiting for the popup and store the Promise in `newTabPromise`.",
+    "a": "const newTabPromise = page.waitForEvent('popup');",
+    "note": "No await here: then click, then `const newTab = await newTabPromise;`"
+  },
+  {
+    "id": "13-popup-get",
+    "q": "Last step of catching a new tab: get the Page from `newTabPromise` into `newTab`.",
+    "a": "const newTab = await newTabPromise;"
+  },
+  {
+    "id": "13-actionability",
+    "type": "concept",
+    "q": "What does Playwright check before a click (actionability)?",
+    "a": "The element is attached, visible, stable (not animating), enabled and receives events (not covered). It retries until these pass or it times out."
+  },
+  {
+    "id": "13-fill-vs-press",
+    "type": "concept",
+    "q": "fill vs pressSequentially: when do you use each?",
+    "a": "fill: almost always (fast, replaces the value). pressSequentially: when the page reacts to each key (autocomplete, filter-as-you-type, input masks)."
+  },
+  {
+    "id": "13-err-not-enabled",
+    "type": "concept",
+    "q": "Call log: 'waiting for element to be visible, enabled and stable - element is not enabled'. Fix?",
+    "a": "The element is disabled. Do the step that enables it first (check a box, fill required fields). Don't add waits or force: true."
+  },
+  {
+    "id": "13-dialog-order",
+    "type": "concept",
+    "q": "Why must page.once('dialog', ...) come BEFORE the click?",
+    "a": "Without a listener Playwright dismisses dialogs automatically. If you register it after the click, the dialog was already dismissed."
+  },
+  {
+    "id": "13-popup-why",
+    "type": "concept",
+    "q": "Why start page.waitForEvent('popup') before the click, but await it after?",
+    "a": "Awaiting before the click would wait forever (the click never runs). Starting after the click could miss the event. So: start the Promise, click, then await."
+  }
+]

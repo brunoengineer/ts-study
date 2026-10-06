@@ -1,0 +1,131 @@
+[
+  {
+    "id": "07-union-var",
+    "q": "Declare a variable `id` (it can change) of type string OR number, without a value.",
+    "a": "let id: string | number;"
+  },
+  {
+    "id": "07-literal-union",
+    "q": "Create a type alias `Role` that can only be 'admin' or 'user'.",
+    "a": "type Role = 'admin' | 'user';",
+    "hint": "type Name = 'a' | 'b';"
+  },
+  {
+    "id": "07-test-status",
+    "q": "Create a type alias `TestStatus` that can be 'passed', 'failed' or 'skipped'.",
+    "a": "type TestStatus = 'passed' | 'failed' | 'skipped';"
+  },
+  {
+    "id": "07-typeof-narrow",
+    "q": "Write the if-line that checks that `value` is a string, ending with {",
+    "a": "if (typeof value === 'string') {"
+  },
+  {
+    "id": "07-in-narrow",
+    "q": "Write the if-line that checks that the object `body` has an 'error' property, ending with {",
+    "a": "if ('error' in body) {"
+  },
+  {
+    "id": "07-isarray",
+    "q": "Write the expression that is true when `tags` is an array.",
+    "a": "Array.isArray(tags)"
+  },
+  {
+    "id": "07-result-type",
+    "q": "Create a type alias `Result`: either { ok: true; data: string[] } or { ok: false; error: string }.",
+    "a": "type Result = { ok: true; data: string[] } | { ok: false; error: string };"
+  },
+  {
+    "id": "07-result-check",
+    "q": "Write the if-line that narrows `result` to the success member (discriminant `ok`), ending with {",
+    "a": "if (result.ok) {",
+    "alt": ["if (result.ok === true) {"]
+  },
+  {
+    "id": "07-null-default",
+    "q": "Declare a constant `clean`: `text` (a string | null) trimmed, using '' when text is null.",
+    "a": "const clean = (text ?? '').trim();",
+    "alt": ["const clean = text?.trim() ?? '';"]
+  },
+  {
+    "id": "07-find-safe",
+    "q": "Declare a constant `name`: the name of the user found with users.find(u => u.id === 7), or 'Unknown user' if none is found.",
+    "a": "const name = users.find((u) => u.id === 7)?.name ?? 'Unknown user';",
+    "alt": ["const name = users.find(u => u.id === 7)?.name ?? 'Unknown user';"]
+  },
+  {
+    "id": "07-as-const",
+    "q": "Declare a constant BROWSERS = ['chromium', 'firefox', 'webkit'] keeping the exact values (read-only).",
+    "a": "const BROWSERS = ['chromium', 'firefox', 'webkit'] as const;"
+  },
+  {
+    "id": "07-type-from-array",
+    "q": "Create a type `BrowserName` that is any item of the `as const` array BROWSERS.",
+    "a": "type BrowserName = (typeof BROWSERS)[number];",
+    "alt": ["type BrowserName = typeof BROWSERS[number];"]
+  },
+  {
+    "id": "07-unknown-param",
+    "q": "Write the first line of a function `readStatus` that takes a parameter `data` of type unknown and returns a number, ending with {",
+    "a": "function readStatus(data: unknown): number {"
+  },
+  {
+    "id": "07-env-check",
+    "q": "Write one line: throw an Error 'PASSWORD is not set' if `password` is falsy (no braces).",
+    "a": "if (!password) throw new Error('PASSWORD is not set');"
+  },
+  {
+    "id": "07-narrowing",
+    "type": "concept",
+    "q": "What is narrowing?",
+    "a": "Checking a value (typeof, ===, in, Array.isArray, instanceof, if (x)) so TypeScript knows a more exact type inside that branch."
+  },
+  {
+    "id": "07-any-vs-unknown",
+    "type": "concept",
+    "q": "any vs unknown: what is the difference? Which do you prefer?",
+    "a": "any switches TypeScript off (you can do anything, even wrong things). unknown forces you to check the value before using it. Prefer unknown."
+  },
+  {
+    "id": "07-as-danger",
+    "type": "concept",
+    "q": "Why is `value as Product` dangerous?",
+    "a": "It only tells TypeScript to trust you. Nothing is checked, not at compile time and not at runtime. If the data is different, you crash later."
+  },
+  {
+    "id": "07-bang-danger",
+    "type": "concept",
+    "q": "What does the ! in `user!.name` do, and what can go wrong?",
+    "a": "It removes null/undefined from the type without any check. If user really is undefined: TypeError: Cannot read properties of undefined."
+  },
+  {
+    "id": "07-enum-vs-union",
+    "type": "concept",
+    "q": "Why do many teams prefer `'passed' | 'failed'` over `enum Status`?",
+    "a": "Unions are plain strings (match API JSON directly), create no runtime code, need no import to use the values, and have no numeric-enum surprises."
+  },
+  {
+    "id": "07-err-not-assignable-literal",
+    "type": "concept",
+    "q": "Error: \"Type '\"superadmin\"' is not assignable to type 'Role'.\" Fix?",
+    "a": "'superadmin' is not one of the values in the Role union. Use an allowed value (Ctrl+Space shows them) or add it to the union."
+  },
+  {
+    "id": "07-err-property-not-exist-union",
+    "type": "concept",
+    "q": "Error: \"Property 'data' does not exist on type 'Result'.\" Why?",
+    "a": "Only one member of the union has data. Check the discriminant first: if (result.ok) { result.data }."
+  },
+  {
+    "id": "07-err-possibly-null",
+    "type": "concept",
+    "q": "Error: \"'text' is possibly 'null'.\" What are your options?",
+    "a": "if (text !== null) { ... }, text ?? 'default', or text?.method(). Avoid text! unless you are 100% sure."
+  },
+  {
+    "id": "07-playwright-null",
+    "type": "concept",
+    "q": "Which Playwright methods return string | null?",
+    "a": "locator.textContent() and locator.getAttribute(name) (both after await). Handle the null case."
+  }
+]

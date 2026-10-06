@@ -1,0 +1,145 @@
+[
+  {
+    "id": "10-export-function",
+    "q": "Write the first line of an EXPORTED function buildUrl that takes `path: string` and returns a string, ending with {",
+    "a": "export function buildUrl(path: string): string {"
+  },
+  {
+    "id": "10-export-const",
+    "q": "Export a constant BASE_URL with the value 'http://localhost:3000'.",
+    "a": "export const BASE_URL = 'http://localhost:3000';"
+  },
+  {
+    "id": "10-named-import",
+    "q": "Import BASE_URL and buildUrl from the file './utils/urls'.",
+    "a": "import { BASE_URL, buildUrl } from './utils/urls';"
+  },
+  {
+    "id": "10-pw-import",
+    "q": "Import test and expect from Playwright.",
+    "a": "import { test, expect } from '@playwright/test';"
+  },
+  {
+    "id": "10-default-import",
+    "q": "Import the DEFAULT export of './utils/logger' and call it log.",
+    "a": "import log from './utils/logger';"
+  },
+  {
+    "id": "10-default-config",
+    "q": "In playwright.config.ts: write the line that default-exports defineConfig called with an empty object.",
+    "a": "export default defineConfig({});"
+  },
+  {
+    "id": "10-import-type",
+    "q": "Import the TYPES Page and Locator from Playwright (type-only import).",
+    "a": "import type { Page, Locator } from '@playwright/test';",
+    "alt": ["import type { Locator, Page } from '@playwright/test';"]
+  },
+  {
+    "id": "10-reexport",
+    "q": "In a barrel file: re-export slugify from './strings'.",
+    "a": "export { slugify } from './strings';"
+  },
+  {
+    "id": "10-reexport-all",
+    "q": "In a barrel file: re-export everything from './users'.",
+    "a": "export * from './users';"
+  },
+  {
+    "id": "10-namespace-import",
+    "q": "Import everything from 'node:path' as one object called path.",
+    "a": "import * as path from 'node:path';"
+  },
+  {
+    "id": "10-up-two",
+    "q": "From modules/10-x/exercises.spec.ts, import todo from helpers/blank.ts (helpers is at the project root).",
+    "a": "import { todo } from '../../helpers/blank';"
+  },
+  {
+    "id": "10-generic-first",
+    "q": "Write the first line of a generic function `first` that takes `items` (an array of T) and returns T or undefined, ending with {",
+    "a": "function first<T>(items: T[]): T | undefined {"
+  },
+  {
+    "id": "10-generic-type",
+    "q": "Create a generic type ApiResponse<T> with `status: number` and `data: T`.",
+    "a": "type ApiResponse<T> = { status: number; data: T };"
+  },
+  {
+    "id": "10-constraint",
+    "q": "Write the first line of a generic function findById where T must have `id: number`; it takes `items: T[]` and `id: number` and returns T or undefined, ending with {",
+    "a": "function findById<T extends { id: number }>(items: T[], id: number): T | undefined {"
+  },
+  {
+    "id": "10-json-annotated",
+    "q": "Declare `products`, an array of Product, from the JSON body of `response` (Playwright).",
+    "a": "const products: Product[] = await response.json();"
+  },
+  {
+    "id": "10-partial-builder",
+    "q": "Write the first line of a function buildUser whose parameter `overrides` is a Partial of User, defaulting to {}, returning a User, ending with {",
+    "a": "function buildUser(overrides: Partial<User> = {}): User {"
+  },
+  {
+    "id": "10-omit",
+    "q": "Create a type NewProduct: Product without its 'id'.",
+    "a": "type NewProduct = Omit<Product, 'id'>;"
+  },
+  {
+    "id": "10-pick",
+    "q": "Create a type ProductSummary with only the 'id' and 'name' of Product.",
+    "a": "type ProductSummary = Pick<Product, 'id' | 'name'>;"
+  },
+  {
+    "id": "10-record",
+    "q": "Declare a constant `permissions` of type Record from Role to string[], with admin: ['delete'] and user: [] (one line).",
+    "a": "const permissions: Record<Role, string[]> = { admin: ['delete'], user: [] };",
+    "hint": "Record<KeyType, ValueType>"
+  },
+  {
+    "id": "10-keyof",
+    "q": "Create a type ProductKey: the union of all property names of Product.",
+    "a": "type ProductKey = keyof Product;"
+  },
+  {
+    "id": "10-extend-fixtures",
+    "q": "Export a constant `test` that extends `base` with the fixtures type MyFixtures, with an empty object as the fixtures.",
+    "a": "export const test = base.extend<MyFixtures>({});"
+  },
+  {
+    "id": "10-named-vs-default",
+    "type": "concept",
+    "q": "Named export vs default export: how do you import each one?",
+    "a": "Named: with { } and the exact name: import { buildUrl } from './urls'. Default: no { } and any name: import log from './logger'. A file has only one default export."
+  },
+  {
+    "id": "10-relative-paths",
+    "type": "concept",
+    "q": "What do './', '../' and a path with neither (like '@playwright/test') mean in an import?",
+    "a": "./ = the folder of this file. ../ = one folder up. No ./ or ../ = a package from node_modules."
+  },
+  {
+    "id": "10-what-is-t",
+    "type": "concept",
+    "q": "In `function first<T>(items: T[]): T | undefined`, what is T?",
+    "a": "A type parameter: a placeholder for a type. The caller decides it (usually TypeScript infers it from the arguments: string[] → T = string)."
+  },
+  {
+    "id": "10-err-not-provide-export",
+    "type": "concept",
+    "q": "Error when loading a test file: \"SyntaxError: The requested module './utils/money' does not provide an export named 'formatPrice'\". Fix?",
+    "a": "That file doesn't export that name. Add `export` in front of it in that file, fix the spelling, or use a default import if it's a default export."
+  },
+  {
+    "id": "10-err-t-no-property",
+    "type": "concept",
+    "q": "Error: \"Property 'id' does not exist on type 'T'.\" Fix?",
+    "a": "T could be any type. Add a constraint: <T extends { id: number }>."
+  },
+  {
+    "id": "10-types-runtime",
+    "type": "concept",
+    "q": "Does Pick<Product, 'id' | 'name'> remove the other properties from an object at runtime?",
+    "a": "No. Types disappear at runtime. They only change what TypeScript lets you use; the object stays the same."
+  }
+]

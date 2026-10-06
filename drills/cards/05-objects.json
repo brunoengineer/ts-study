@@ -1,0 +1,160 @@
+[
+  {
+    "id": "05-object-literal",
+    "q": "Create a constant `user`, of type User, with username 'admin', name 'Ada Admin' and role 'admin'.",
+    "a": "const user: User = { username: 'admin', name: 'Ada Admin', role: 'admin' };",
+    "note": "Read it: constant user, of type User, is an object where username is admin, ..."
+  },
+  {
+    "id": "05-type-alias",
+    "q": "Declare a type `Credentials` with username (string) and password (string).",
+    "a": "type Credentials = { username: string; password: string };",
+    "alt": ["type Credentials = { username: string, password: string };"]
+  },
+  {
+    "id": "05-interface",
+    "q": "Write the first line of an interface `Product` (just the opening, up to the {).",
+    "a": "interface Product {",
+    "note": "No = for an interface. A type alias has one: type Product = {"
+  },
+  {
+    "id": "05-optional-prop",
+    "q": "Inside a type: write an OPTIONAL property `role` of type string.",
+    "a": "role?: string;",
+    "alt": ["role?: string"]
+  },
+  {
+    "id": "05-readonly-prop",
+    "q": "Inside a type: write a READ-ONLY property `baseUrl` of type string.",
+    "a": "readonly baseUrl: string;",
+    "alt": ["readonly baseUrl: string"]
+  },
+  {
+    "id": "05-bracket-access",
+    "q": "Read the 'Content-Type' value from the object `headers`.",
+    "a": "headers['Content-Type']"
+  },
+  {
+    "id": "05-nested-access",
+    "q": "Read the role of the user inside the object `body` (body has a `user` object).",
+    "a": "body.user.role",
+    "alt": ["body['user']['role']"]
+  },
+  {
+    "id": "05-shorthand",
+    "q": "Create `credentials` from the existing variables `username` and `password` (shorthand properties).",
+    "a": "const credentials = { username, password };",
+    "alt": ["const credentials = { username: username, password: password };"]
+  },
+  {
+    "id": "05-destructure",
+    "q": "Take `name` and `price` out of the object `product` (object destructuring).",
+    "a": "const { name, price } = product;"
+  },
+  {
+    "id": "05-destructure-rename",
+    "q": "Take `username` out of `account`, but call the variable `login`.",
+    "a": "const { username: login } = account;"
+  },
+  {
+    "id": "05-destructure-default",
+    "q": "Take `role` out of `account`, with the default value 'user'.",
+    "a": "const { role = 'user' } = account;"
+  },
+  {
+    "id": "05-fixture",
+    "q": "Write the start of a Playwright test called 'login' that takes the page fixture (up to the opening {).",
+    "a": "test('login', async ({ page }) => {",
+    "note": "({ page }) is object destructuring: from all fixtures, take page."
+  },
+  {
+    "id": "05-fixture-two",
+    "q": "Write the parameter part of a Playwright test function that takes BOTH page and request (async arrow, up to =>).",
+    "a": "async ({ page, request }) =>"
+  },
+  {
+    "id": "05-param-destructure",
+    "q": "Write the first line of a function `describeProduct` that destructures name and price from a Product parameter and returns a string.",
+    "a": "function describeProduct({ name, price }: Product): string {"
+  },
+  {
+    "id": "05-spread-override",
+    "q": "Create `admin`: a copy of `defaults` with role set to 'admin'.",
+    "a": "const admin = { ...defaults, role: 'admin' };"
+  },
+  {
+    "id": "05-spread-merge",
+    "q": "Inside a builder: return `defaults` merged with `overrides` (overrides win).",
+    "a": "return { ...defaults, ...overrides };"
+  },
+  {
+    "id": "05-builder-signature",
+    "q": "Write the first line of a builder `buildProduct` with an `overrides` parameter (all Product properties optional, default {}), returning a Product.",
+    "a": "function buildProduct(overrides: Partial<Product> = {}): Product {"
+  },
+  {
+    "id": "05-record",
+    "q": "Declare `headers` as an object with any string keys and string values, starting empty.",
+    "a": "const headers: Record<string, string> = {};"
+  },
+  {
+    "id": "05-object-keys",
+    "q": "Get the list of key names of the object `user`.",
+    "a": "Object.keys(user)"
+  },
+  {
+    "id": "05-json-stringify",
+    "q": "Turn the object `body` into a JSON string.",
+    "a": "JSON.stringify(body)"
+  },
+  {
+    "id": "05-json-parse",
+    "q": "Create `body`, of type LoginResponse, by parsing the JSON string `text`.",
+    "a": "const body: LoginResponse = JSON.parse(text);"
+  },
+  {
+    "id": "05-to-match-object",
+    "q": "Assert that `body` has at least a user whose role is 'admin' (extra keys are fine).",
+    "a": "expect(body).toMatchObject({ user: { role: 'admin' } });"
+  },
+  {
+    "id": "05-to-have-property",
+    "q": "Assert that `body` has the property 'token'.",
+    "a": "expect(body).toHaveProperty('token');"
+  },
+  {
+    "id": "05-to-have-property-nested",
+    "q": "Assert that `body` has the nested property user.role with the value 'admin' (toHaveProperty).",
+    "a": "expect(body).toHaveProperty('user.role', 'admin');"
+  },
+  {
+    "id": "05-matchers",
+    "type": "concept",
+    "q": "toBe vs toEqual vs toMatchObject for objects?",
+    "a": "toBe: the very same object in memory (almost never what you want). toEqual: all keys and values equal. toMatchObject: at least these keys/values, extra keys allowed."
+  },
+  {
+    "id": "05-type-vs-interface",
+    "type": "concept",
+    "q": "type vs interface: when do you use which?",
+    "a": "Both describe object shapes. type can also describe unions and function types and uses =. interface is objects only, no =, common for page objects/classes. Be consistent in a project."
+  },
+  {
+    "id": "05-copy-vs-reference",
+    "type": "concept",
+    "q": "`const copy = original; copy.stock = 0;` Why did original.stock change too? Fix?",
+    "a": "= doesn't copy an object: both names point to the same object. Make a real copy: const copy = { ...original };"
+  },
+  {
+    "id": "05-destructure-colon",
+    "type": "concept",
+    "q": "In `const { username: login } = account;` what does the colon mean?",
+    "a": "Rename: take username and store it in a variable called login. Inside destructuring on the LEFT of =, the colon is NOT a type annotation."
+  },
+  {
+    "id": "05-err-destructure-pattern",
+    "type": "concept",
+    "q": "Playwright says: \"First argument must use the object destructuring pattern: page\". What did you write and how do you fix it?",
+    "a": "You wrote async (page) => ... Playwright passes ONE object of fixtures; take page out with destructuring: async ({ page }) => ..."
+  }
+]

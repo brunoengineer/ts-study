@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "types": ["node"]
+  },
+  "include": ["modules/**/*.ts", "solutions/**/*.ts", "helpers/**/*.ts", "scratch/**/*.ts", "my-katas/**/*.ts", "final-project/**/*.ts", "playwright.config.ts"]
+}

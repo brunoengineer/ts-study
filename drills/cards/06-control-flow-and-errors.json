@@ -1,0 +1,137 @@
+[
+  {
+    "id": "06-if-range",
+    "q": "Write the condition (just the expression) that is true when `status` is between 200 and 299.",
+    "a": "status >= 200 && status < 300",
+    "alt": ["status >= 200 && status <= 299"],
+    "hint": "two comparisons joined with &&"
+  },
+  {
+    "id": "06-not",
+    "q": "Write the expression that is true when `isLoggedIn` is false (use the NOT operator).",
+    "a": "!isLoggedIn"
+  },
+  {
+    "id": "06-ternary",
+    "q": "Declare a constant `label` that is 'Add to cart' when `stock > 0`, otherwise 'Sold out' (ternary).",
+    "a": "const label = stock > 0 ? 'Add to cart' : 'Sold out';",
+    "hint": "condition ? valueIfTrue : valueIfFalse"
+  },
+  {
+    "id": "06-retries-ci",
+    "q": "In playwright.config.ts: write the `retries` property: 2 when process.env.CI is set, otherwise 0.",
+    "a": "retries: process.env.CI ? 2 : 0,",
+    "alt": ["retries: process.env.CI ? 2 : 0"]
+  },
+  {
+    "id": "06-baseurl-env",
+    "q": "Declare a constant `baseURL`: process.env.BASE_URL, or 'http://localhost:3000' when it is missing (use ??).",
+    "a": "const baseURL = process.env.BASE_URL ?? 'http://localhost:3000';"
+  },
+  {
+    "id": "06-optional-chaining",
+    "q": "Declare a constant `city`: user.address.city, but without crashing if `address` is missing, and 'unknown' as default.",
+    "a": "const city = user.address?.city ?? 'unknown';",
+    "alt": ["const city = user?.address?.city ?? 'unknown';"]
+  },
+  {
+    "id": "06-for-of",
+    "q": "Write the first line of a for...of loop over the array `results` (each item called `result`), ending with {",
+    "a": "for (const result of results) {"
+  },
+  {
+    "id": "06-classic-for",
+    "q": "Write the first line of a classic for loop: i from 0 while i is less than items.length, adding 1 each round, ending with {",
+    "a": "for (let i = 0; i < items.length; i++) {"
+  },
+  {
+    "id": "06-while",
+    "q": "Write the first line of a while loop that runs while `ready` is false AND `attempt` is less than 5, ending with {",
+    "a": "while (!ready && attempt < 5) {"
+  },
+  {
+    "id": "06-entries-loop",
+    "q": "Write the first line of a loop over the object `headers` that gives you `key` and `value` each round, ending with {",
+    "a": "for (const [key, value] of Object.entries(headers)) {"
+  },
+  {
+    "id": "06-switch-case",
+    "q": "Write the first line of a switch on the variable `role`, ending with {",
+    "a": "switch (role) {"
+  },
+  {
+    "id": "06-throw",
+    "q": "Throw an error with the message 'Username is required'.",
+    "a": "throw new Error('Username is required');"
+  },
+  {
+    "id": "06-catch-instanceof",
+    "q": "Inside `catch (error)`, write the if-line that checks error is a real Error object, ending with {",
+    "a": "if (error instanceof Error) {"
+  },
+  {
+    "id": "06-to-throw",
+    "q": "Assert that calling parsePrice('abc') throws 'Invalid price'.",
+    "a": "expect(() => parsePrice('abc')).toThrow('Invalid price');",
+    "hint": "expect needs a FUNCTION: () => ..."
+  },
+  {
+    "id": "06-not-to-throw",
+    "q": "Assert that calling login('standard_user', 'secret123') does NOT throw.",
+    "a": "expect(() => login('standard_user', 'secret123')).not.toThrow();"
+  },
+  {
+    "id": "06-falsy-list",
+    "type": "concept",
+    "q": "Name the 6 falsy values.",
+    "a": "false, 0, '' (empty string), null, undefined, NaN. Everything else is truthy, even '0', [] and {}."
+  },
+  {
+    "id": "06-nullish-vs-or",
+    "type": "concept",
+    "q": "What is `0 || 5000`? What is `0 ?? 5000`? Which one do you use for defaults?",
+    "a": "0 || 5000 is 5000 (|| replaces every falsy value). 0 ?? 5000 is 0 (?? only replaces null and undefined). Use ?? for defaults."
+  },
+  {
+    "id": "06-break-continue",
+    "type": "concept",
+    "q": "What is the difference between `break` and `continue` in a loop?",
+    "a": "continue skips the rest of THIS round and goes to the next item. break stops the whole loop."
+  },
+  {
+    "id": "06-switch-fallthrough",
+    "type": "concept",
+    "q": "A switch case returns the value of the NEXT case. What is the bug?",
+    "a": "A missing break (fall-through). Every case must end with break or return."
+  },
+  {
+    "id": "06-finally",
+    "type": "concept",
+    "q": "When does the `finally` block run?",
+    "a": "Always: after try if there was no error, after catch if there was one. Use it for cleanup."
+  },
+  {
+    "id": "06-err-unknown",
+    "type": "concept",
+    "q": "Error: \"'error' is of type 'unknown'.\" inside catch. Why, and how do you fix it?",
+    "a": "JavaScript can throw anything, so TypeScript types the caught error as unknown. Check it first: if (error instanceof Error) { error.message }."
+  },
+  {
+    "id": "06-err-matcher-function",
+    "type": "concept",
+    "q": "Error: \"Matcher error: received value must be a function\" with toThrow. Fix?",
+    "a": "You passed the RESULT of the call: expect(fn()). Pass a function instead: expect(() => fn()).toThrow()."
+  },
+  {
+    "id": "06-err-read-undefined",
+    "type": "concept",
+    "q": "Error: \"TypeError: Cannot read properties of undefined (reading 'city')\". What happened?",
+    "a": "You read .city on something that is undefined (for example user.address). Use optional chaining: user.address?.city."
+  },
+  {
+    "id": "06-off-by-one",
+    "type": "concept",
+    "q": "Why is `for (let i = 0; i <= items.length; i++)` a bug?",
+    "a": "Indexes go from 0 to length - 1. With <= the last round reads items[length], which is undefined. Use <."
+  }
+]

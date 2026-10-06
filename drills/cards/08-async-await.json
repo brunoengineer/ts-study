@@ -1,0 +1,140 @@
+[
+  {
+    "id": "08-await-value",
+    "q": "Declare a constant `user`: the VALUE of fakeFetchUser(1) (not the promise).",
+    "a": "const user = await fakeFetchUser(1);"
+  },
+  {
+    "id": "08-async-test",
+    "q": "Write the first line of a Playwright test called 'login works' that gets `page` (ending with {",
+    "a": "test('login works', async ({ page }) => {",
+    "hint": "async goes BEFORE the parameters"
+  },
+  {
+    "id": "08-goto",
+    "q": "Go to '/login' with the Playwright page (one line).",
+    "a": "await page.goto('/login');"
+  },
+  {
+    "id": "08-async-function",
+    "q": "Write the first line of an async function `getUserName` that takes `id: number` and returns a string (ending with {",
+    "a": "async function getUserName(id: number): Promise<string> {"
+  },
+  {
+    "id": "08-async-arrow",
+    "q": "Write the first line of a constant `getRole`: an async arrow function taking `id: number`, returning a string (ending with {",
+    "a": "const getRole = async (id: number): Promise<string> => {"
+  },
+  {
+    "id": "08-sleep-body",
+    "q": "Inside `function sleep(ms: number): Promise<void>`, write the return line (new Promise + setTimeout).",
+    "a": "return new Promise((resolve) => setTimeout(resolve, ms));",
+    "alt": ["return new Promise(resolve => setTimeout(resolve, ms));"]
+  },
+  {
+    "id": "08-promise-all",
+    "q": "Fetch users 1 and 2 in parallel and destructure them into `sam` and `ada`.",
+    "a": "const [sam, ada] = await Promise.all([fakeFetchUser(1), fakeFetchUser(2)]);"
+  },
+  {
+    "id": "08-promise-all-map",
+    "q": "Fetch every id in the array `ids` in parallel with fakeFetchUser and store them in `users`.",
+    "a": "const users = await Promise.all(ids.map((id) => fakeFetchUser(id)));",
+    "alt": ["const users = await Promise.all(ids.map(id => fakeFetchUser(id)));", "const users = await Promise.all(ids.map(fakeFetchUser));"]
+  },
+  {
+    "id": "08-rejects",
+    "q": "Assert that fakeFetchUser(99) rejects with 'User 99 not found'.",
+    "a": "await expect(fakeFetchUser(99)).rejects.toThrow('User 99 not found');"
+  },
+  {
+    "id": "08-resolves",
+    "q": "Assert that fakeLogin('admin', 'admin123') resolves to 'token-admin'.",
+    "a": "await expect(fakeLogin('admin', 'admin123')).resolves.toBe('token-admin');"
+  },
+  {
+    "id": "08-expect-await",
+    "q": "Assert that the awaited value of getStatus() is 200 (await inside expect).",
+    "a": "expect(await getStatus()).toBe(200);"
+  },
+  {
+    "id": "08-for-of-await",
+    "q": "Write the first line of a loop over `ids` (each one `id`) where you can await inside (ending with {",
+    "a": "for (const id of ids) {"
+  },
+  {
+    "id": "08-web-first",
+    "q": "Assert that the locator `page.getByText('Welcome')` is visible (web-first assertion).",
+    "a": "await expect(page.getByText('Welcome')).toBeVisible();"
+  },
+  {
+    "id": "08-json",
+    "q": "Declare a constant `products` of type Product[]: the JSON body of `response` (a Playwright APIResponse).",
+    "a": "const products: Product[] = await response.json();"
+  },
+  {
+    "id": "08-race",
+    "q": "Declare `user`: whichever settles first of fetchUser(1) and timeout(1000).",
+    "a": "const user = await Promise.race([fetchUser(1), timeout(1000)]);"
+  },
+  {
+    "id": "08-promise-states",
+    "type": "concept",
+    "q": "What are the 3 states of a Promise?",
+    "a": "pending (not done yet), fulfilled (worked: has a value), rejected (failed: has an error)."
+  },
+  {
+    "id": "08-async-returns",
+    "type": "concept",
+    "q": "`async function f() { return 200; }` What does f() return?",
+    "a": "A Promise<number> (fulfilled with 200). An async function ALWAYS returns a Promise. Use await f() to get 200."
+  },
+  {
+    "id": "08-forgot-await-symptoms",
+    "type": "concept",
+    "q": "Name 3 symptoms of a forgotten await.",
+    "a": "1) Property 'x' does not exist on type 'Promise<...>' / Received: Promise {}. 2) The check runs before the value is ready. 3) The test passes for the wrong reason (a Promise is truthy), or the error shows up in another test / 'Target page, context or browser has been closed'."
+  },
+  {
+    "id": "08-which-await",
+    "type": "concept",
+    "q": "Which need await: page.goto(), page.getByRole(), locator.click(), expect(locator).toBeVisible(), expect(5).toBe(5)?",
+    "a": "await: page.goto(), locator.click(), expect(locator).toBeVisible(). NO await: page.getByRole() (a locator is just a description) and expect(5).toBe(5) (a plain value)."
+  },
+  {
+    "id": "08-foreach",
+    "type": "concept",
+    "q": "Why is `items.forEach(async (item) => { await ... })` a bug?",
+    "a": "forEach does not wait for async callbacks: it starts them all and moves on. Use for...of with await, or Promise.all(items.map(...))."
+  },
+  {
+    "id": "08-seq-vs-parallel",
+    "type": "concept",
+    "q": "When must async steps be sequential, and when can you use Promise.all?",
+    "a": "Sequential when a step needs the result of the previous one (login -> token -> cart) or order matters. Promise.all when they are independent."
+  },
+  {
+    "id": "08-err-await-not-async",
+    "type": "concept",
+    "q": "Error: \"'await' expressions are only allowed within async functions and at the top levels of modules.\" Fix?",
+    "a": "Add async to the function that contains the await: async function f() {...} or async () => {...}."
+  },
+  {
+    "id": "08-err-target-closed",
+    "type": "concept",
+    "q": "Error: \"locator.click: Target page, context or browser has been closed\". Most likely cause?",
+    "a": "A missing await: the test ended (and the browser closed) before the action ran. Add await before the action."
+  },
+  {
+    "id": "08-return-await",
+    "type": "concept",
+    "q": "Inside try { return fetchUser(id); } catch { return null; } the catch never runs on errors. Why?",
+    "a": "The promise is returned, not awaited, so it rejects after the try is over. Write return await fetchUser(id); to wait inside the try."
+  },
+  {
+    "id": "08-no-sleep",
+    "type": "concept",
+    "q": "Why should real Playwright tests avoid page.waitForTimeout(2000) / sleep?",
+    "a": "It always waits the full time (slow) and can still be too short (flaky). Web-first assertions like await expect(locator).toBeVisible() wait exactly as long as needed."
+  }
+]

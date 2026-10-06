@@ -1,0 +1,151 @@
+[
+  {
+    "id": "02-template-greeting",
+    "q": "Create a constant `greeting` with a template literal: Hello, + the value of `username` + !",
+    "a": "const greeting = `Hello, ${username}!`;",
+    "hint": "Backticks, and ${ } around the variable.",
+    "note": "Only backticks fill ${}. With single quotes you get the text ${username} literally."
+  },
+  {
+    "id": "02-template-url",
+    "q": "Create a constant `url` with a template literal: the value of `baseUrl` + '/products/' + the value of `productId`.",
+    "a": "const url = `${baseUrl}/products/${productId}`;"
+  },
+  {
+    "id": "02-unique-email",
+    "q": "Create a constant `email` that is unique every time: 'user_' + Date.now() + '@test.com' (one template literal).",
+    "a": "const email = `user_${Date.now()}@test.com`;"
+  },
+  {
+    "id": "02-last-char",
+    "q": "Get the LAST character of the string `code` (use the method with a negative index).",
+    "a": "code.at(-1)",
+    "alt": ["code[code.length - 1]"]
+  },
+  {
+    "id": "02-trim-lower",
+    "q": "Remove the spaces at both ends of `text` AND turn it into lower case (one chain).",
+    "a": "text.trim().toLowerCase()",
+    "alt": ["text.toLowerCase().trim()"]
+  },
+  {
+    "id": "02-includes",
+    "q": "Write the expression that is true when `url` contains '/products'.",
+    "a": "url.includes('/products')"
+  },
+  {
+    "id": "02-slice-from",
+    "q": "From `orderCode` ('ORD-1001'), get everything from index 4 to the end.",
+    "a": "orderCode.slice(4)"
+  },
+  {
+    "id": "02-slice-first3",
+    "q": "Get the first 3 characters of `orderCode` with slice.",
+    "a": "orderCode.slice(0, 3)"
+  },
+  {
+    "id": "02-split",
+    "q": "Get the first word of `fullName` (split it at the space and take the first piece).",
+    "a": "fullName.split(' ')[0]"
+  },
+  {
+    "id": "02-replace-all",
+    "q": "Replace EVERY space in `name` with a dash '-'.",
+    "a": "name.replaceAll(' ', '-')"
+  },
+  {
+    "id": "02-pad-start",
+    "q": "Pad the string `id` on the left with '0' until it is 4 characters long.",
+    "a": "id.padStart(4, '0')"
+  },
+  {
+    "id": "02-parse-total",
+    "q": "Turn `totalText` ('Total: $59.98') into the number 59.98: remove 'Total: $' with replace, then parseFloat.",
+    "a": "parseFloat(totalText.replace('Total: $', ''))",
+    "alt": ["Number(totalText.replace('Total: $', ''))"]
+  },
+  {
+    "id": "02-format-price",
+    "q": "Format the number `price` as text like '$7.50' (template literal + toFixed).",
+    "a": "`$${price.toFixed(2)}`"
+  },
+  {
+    "id": "02-number-convert",
+    "q": "Convert the string `quantity` to a number (the simplest way).",
+    "a": "Number(quantity)",
+    "alt": ["parseInt(quantity)", "parseFloat(quantity)"]
+  },
+  {
+    "id": "02-random-int",
+    "q": "Create a constant `roll`: a random whole number from 1 to 6.",
+    "a": "const roll = Math.floor(Math.random() * 6) + 1;"
+  },
+  {
+    "id": "02-isnan",
+    "q": "Write the expression that is true when `value` is NaN (the correct way).",
+    "a": "Number.isNaN(value)"
+  },
+  {
+    "id": "02-close-to",
+    "q": "Assert that `total` is (close to) 59.98. It is a calculated decimal.",
+    "a": "expect(total).toBeCloseTo(59.98);"
+  },
+  {
+    "id": "02-to-contain",
+    "q": "Assert that the string `message` contains 'locked out'.",
+    "a": "expect(message).toContain('locked out');"
+  },
+  {
+    "id": "02-to-match",
+    "q": "Assert that `resultCount` matches: start, one or more digits, ' products', end.",
+    "a": "expect(resultCount).toMatch(/^\\d+ products$/);"
+  },
+  {
+    "id": "02-regex-test",
+    "q": "Write the expression that is true when `heading` starts with 'Hello', ignoring upper/lower case (regex + .test).",
+    "a": "/^hello/i.test(heading)",
+    "alt": ["/^Hello/i.test(heading)"]
+  },
+  {
+    "id": "02-to-have-url",
+    "q": "Playwright: assert that the page URL contains 'products' (use a regex).",
+    "a": "await expect(page).toHaveURL(/products/);",
+    "alt": ["await expect(page).toHaveURL(/.*products/);"]
+  },
+  {
+    "id": "02-string-plus-number",
+    "type": "concept",
+    "q": "What is '2' + 1, and why?",
+    "a": "'21'. If one side of + is a string, + glues text instead of adding. Convert first: Number('2') + 1 is 3."
+  },
+  {
+    "id": "02-tofixed-type",
+    "type": "concept",
+    "q": "What TYPE does price.toFixed(2) return?",
+    "a": "A string, e.g. '7.50'. Use it for display. For maths, keep the number (or convert back with Number(...))."
+  },
+  {
+    "id": "02-strings-immutable",
+    "type": "concept",
+    "q": "You wrote `label.trim();` but `label` still has spaces. Why?",
+    "a": "Strings never change. String methods return a NEW string. Keep it: const clean = label.trim();"
+  },
+  {
+    "id": "02-float",
+    "type": "concept",
+    "q": "Why does expect(0.1 + 0.2).toBe(0.3) fail, and what do you use instead?",
+    "a": "Decimals are stored in binary and are not exact: 0.1 + 0.2 is 0.30000000000000004. Use toBeCloseTo(0.3)."
+  },
+  {
+    "id": "02-received-nan",
+    "type": "concept",
+    "q": "A test shows `Received: NaN`. What happened?",
+    "a": "A conversion to number failed: the text had a $, a space, a comma or a word in it. Clean the text (replace/slice/trim) before converting."
+  },
+  {
+    "id": "02-regex-symbols",
+    "type": "concept",
+    "q": "In a regex, what do ^ , $ , \\d , + and the i flag mean?",
+    "a": "^ = start of the text, $ = end of the text, \\d = one digit, + = one or more of the thing before, i = ignore upper/lower case."
+  }
+]

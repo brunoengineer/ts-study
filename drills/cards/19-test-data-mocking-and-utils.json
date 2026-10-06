@@ -1,0 +1,143 @@
+[
+  {
+    "id": "19-builder-signature",
+    "q": "First line of a function buildProduct with ONE parameter `overrides`: a Partial of NewProduct, default {}. Returns NewProduct. End with `{`.",
+    "a": "function buildProduct(overrides: Partial<NewProduct> = {}): NewProduct {"
+  },
+  {
+    "id": "19-builder-return",
+    "q": "Inside buildProduct: return the object `defaults` with the `overrides` on top (spread).",
+    "a": "return { ...defaults, ...overrides };"
+  },
+  {
+    "id": "19-spread-wins",
+    "type": "concept",
+    "q": "{ ...a, ...b }: both have the key `price`. Which value do you get?",
+    "a": "b's price. With spread, the LAST one wins. That's why defaults go first and overrides last."
+  },
+  {
+    "id": "19-unique-name",
+    "q": "Declare `username`: 'user-' followed by the current time in milliseconds (template string).",
+    "a": "const username = `user-${Date.now()}`;"
+  },
+  {
+    "id": "19-uuid",
+    "q": "Import randomUUID from Node's crypto module.",
+    "a": "import { randomUUID } from 'node:crypto';",
+    "alt": ["import { randomUUID } from 'crypto';"]
+  },
+  {
+    "id": "19-worker-index",
+    "q": "The index of the worker running the current test (from test.info()).",
+    "a": "test.info().workerIndex"
+  },
+  {
+    "id": "19-env-number",
+    "q": "Declare RETRIES: the env variable RETRIES as a NUMBER, falling back to '2'.",
+    "a": "const RETRIES = Number(process.env.RETRIES ?? '2');"
+  },
+  {
+    "id": "19-dotenv",
+    "q": "First line of playwright.config.ts that loads the .env file with the dotenv package.",
+    "a": "import 'dotenv/config';"
+  },
+  {
+    "id": "19-parse-price",
+    "q": "Return the number inside the price text `text` (like '$29.99'): remove '$', then convert.",
+    "a": "return Number(text.replace('$', ''));"
+  },
+  {
+    "id": "19-format-price",
+    "q": "Return the number `value` as a price string with a $ and 2 decimals (template string).",
+    "a": "return `$${value.toFixed(2)}`;"
+  },
+  {
+    "id": "19-close-to",
+    "q": "Assert that `total` is close to 129.94 (floating point safe).",
+    "a": "expect(total).toBeCloseTo(129.94);"
+  },
+  {
+    "id": "19-data-driven",
+    "q": "First line of a loop over `cases`, destructuring `term` and `expected` from each item. End with `{`.",
+    "a": "for (const { term, expected } of cases) {"
+  },
+  {
+    "id": "19-data-driven-title",
+    "q": "Inside that loop: first line of a test whose title is 'search ' + term (template string), using `request`. End with `{`.",
+    "a": "test(`search ${term}`, async ({ request }) => {"
+  },
+  {
+    "id": "19-step",
+    "q": "Wrap code in a step called 'log in' (write the opening line, ending with `{`).",
+    "a": "await test.step('log in', async () => {"
+  },
+  {
+    "id": "19-step-return",
+    "q": "Opening line of a step called 'count items' whose RETURN value is stored in `count`. End with `{`.",
+    "a": "const count = await test.step('count items', async () => {"
+  },
+  {
+    "id": "19-tag",
+    "q": "First line of a test 'login works' tagged @smoke, using `page`. End with `{`.",
+    "a": "test('login works', { tag: '@smoke' }, async ({ page }) => {"
+  },
+  {
+    "id": "19-grep",
+    "q": "Terminal: run only the tests tagged @smoke.",
+    "a": "npx playwright test --grep @smoke"
+  },
+  {
+    "id": "19-annotation",
+    "q": "The details object that links a test to issue 'SHOP-42' (annotation type 'issue').",
+    "a": "{ annotation: { type: 'issue', description: 'SHOP-42' } }"
+  },
+  {
+    "id": "19-attach-json",
+    "q": "Attach `data` to the report as 'data.json' (JSON.stringify it, contentType 'application/json').",
+    "a": "await test.info().attach('data.json', { body: JSON.stringify(data), contentType: 'application/json' });"
+  },
+  {
+    "id": "19-screenshot-attach",
+    "q": "Attach the Buffer `screenshot` to the report with the name 'page' as a PNG.",
+    "a": "await test.info().attach('page', { body: screenshot, contentType: 'image/png' });"
+  },
+  {
+    "id": "19-route-fulfill",
+    "q": "Mock every request to '**/api/products': answer with the JSON `products`.",
+    "a": "await page.route('**/api/products', (route) => route.fulfill({ json: products }));",
+    "alt": ["await page.route('**/api/products', route => route.fulfill({ json: products }));"]
+  },
+  {
+    "id": "19-route-abort",
+    "q": "Make every request to '**/api/products' fail like a network error.",
+    "a": "await page.route('**/api/products', (route) => route.abort());",
+    "alt": ["await page.route('**/api/products', route => route.abort());"]
+  },
+  {
+    "id": "19-route-fetch",
+    "q": "Inside an async route handler: get the REAL response from the server into `response`.",
+    "a": "const response = await route.fetch();"
+  },
+  {
+    "id": "19-route-modify",
+    "q": "Inside the handler: answer with the real `response` but the changed JSON `products`.",
+    "a": "await route.fulfill({ response, json: products });"
+  },
+  {
+    "id": "19-wait-response",
+    "q": "Start waiting for a response to '**/api/products' BEFORE the click (no await). Call it responsePromise.",
+    "a": "const responsePromise = page.waitForResponse('**/api/products');"
+  },
+  {
+    "id": "19-when-mock",
+    "type": "concept",
+    "q": "When should you mock the network, and when not?",
+    "a": "Mock: hard-to-cause errors (500, offline), third-party services, edge-case data. Don't mock the main happy path of your own app in end-to-end tests: you want to know the real backend works."
+  },
+  {
+    "id": "19-duplicate-title",
+    "type": "concept",
+    "q": "Error: duplicate test title \"search\". What's wrong in your data-driven loop?",
+    "a": "Every generated test has the same title. Put the row's data in the title, e.g. `search ${term}`."
+  }
+]

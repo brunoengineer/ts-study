@@ -1,0 +1,137 @@
+[
+  {
+    "id": "09-class-line",
+    "q": "Write the first line of a class called LoginPage, ending with {",
+    "a": "class LoginPage {"
+  },
+  {
+    "id": "09-new",
+    "q": "Create a new Cart (no arguments) and store it in a constant `cart`.",
+    "a": "const cart = new Cart();"
+  },
+  {
+    "id": "09-new-args",
+    "q": "Create a new TestUser with 'admin' and 'admin123' and store it in a constant `admin`.",
+    "a": "const admin = new TestUser('admin', 'admin123');"
+  },
+  {
+    "id": "09-property-default",
+    "q": "Inside a class: declare a property `items`, an array of strings, starting empty.",
+    "a": "items: string[] = [];"
+  },
+  {
+    "id": "09-this-assign",
+    "q": "Inside a constructor: store the parameter `username` in the object's property `username`.",
+    "a": "this.username = username;"
+  },
+  {
+    "id": "09-param-property",
+    "q": "Write a constructor (with an empty body) that takes `page` of type Page and stores it as a private readonly property.",
+    "a": "constructor(private readonly page: Page) {}",
+    "note": "You'll write this in every page object."
+  },
+  {
+    "id": "09-method",
+    "q": "Inside a class: write the first line of a method `add` that takes `name: string` and returns nothing, ending with {",
+    "a": "add(name: string): void {"
+  },
+  {
+    "id": "09-async-method",
+    "q": "Inside a class: write the first line of an async method `login` taking username and password (both strings), ending with {",
+    "a": "async login(username: string, password: string): Promise<void> {"
+  },
+  {
+    "id": "09-goto-in-method",
+    "q": "Inside a page object method: go to '/login' using the object's page property.",
+    "a": "await this.page.goto('/login');"
+  },
+  {
+    "id": "09-getter",
+    "q": "Inside a class: write the first line of a getter `total` that returns a number, ending with {",
+    "a": "get total(): number {"
+  },
+  {
+    "id": "09-static-const",
+    "q": "Inside a class: declare a static readonly property DEFAULT_PASSWORD with the value 'secret123'.",
+    "a": "static readonly DEFAULT_PASSWORD = 'secret123';"
+  },
+  {
+    "id": "09-extends",
+    "q": "Write the first line of a class CartPage that inherits from BasePage, ending with {",
+    "a": "class CartPage extends BasePage {"
+  },
+  {
+    "id": "09-super",
+    "q": "In CartPage's constructor: call the BasePage constructor with `page` and '/cart'.",
+    "a": "super(page, '/cart');"
+  },
+  {
+    "id": "09-implements",
+    "q": "Write the first line of a class MyReporter that implements the interface Reporter, ending with {",
+    "a": "class MyReporter implements Reporter {"
+  },
+  {
+    "id": "09-error-class",
+    "q": "Write the first line of a class ApiError that extends Error, ending with {",
+    "a": "class ApiError extends Error {"
+  },
+  {
+    "id": "09-instanceof",
+    "q": "Write the if-line that checks `error` was created by the ApiError class, ending with {",
+    "a": "if (error instanceof ApiError) {"
+  },
+  {
+    "id": "09-wrap-method",
+    "q": "Add every name of the array `names` to `cart` with forEach, WITHOUT losing `this`.",
+    "a": "names.forEach((name) => cart.add(name));",
+    "alt": ["names.forEach(name => cart.add(name));"]
+  },
+  {
+    "id": "09-public-private-readonly",
+    "type": "concept",
+    "q": "public vs private vs protected vs readonly?",
+    "a": "public: everyone (default). private: only inside this class. protected: this class and classes that extend it. readonly: can't be changed after the constructor."
+  },
+  {
+    "id": "09-static-vs-instance",
+    "type": "concept",
+    "q": "What is the difference between a static member and a normal (instance) member?",
+    "a": "A static member belongs to the class (TestUser.DEFAULT_PASSWORD), shared once. An instance member belongs to each object (user.username)."
+  },
+  {
+    "id": "09-param-property-meaning",
+    "type": "concept",
+    "q": "What does `constructor(private readonly page: Page) {}` do?",
+    "a": "It declares a private readonly property `page`, takes a parameter `page`, and assigns it (this.page = page). A shortcut for 3 lines."
+  },
+  {
+    "id": "09-err-no-initializer",
+    "type": "concept",
+    "q": "Error: \"Property 'name' has no initializer and is not definitely assigned in the constructor.\" Usual cause?",
+    "a": "The property never gets a value. Often `name = name` instead of `this.name = name`. Assign it in the constructor or give it a default."
+  },
+  {
+    "id": "09-err-not-callable-new",
+    "type": "concept",
+    "q": "Error: \"Value of type 'typeof Cart' is not callable. Did you mean to include 'new'?\" Fix?",
+    "a": "You called the class like a function: Cart(). Use new Cart()."
+  },
+  {
+    "id": "09-err-super",
+    "type": "concept",
+    "q": "Error: \"Constructors for derived classes must contain a 'super' call.\" Fix?",
+    "a": "In a class that extends another, call super(...) as the first line of the constructor, before using this."
+  },
+  {
+    "id": "09-lost-this",
+    "type": "concept",
+    "q": "Why does `items.forEach(cart.add)` crash with \"Cannot read properties of undefined (reading 'items')\"?",
+    "a": "forEach calls add on its own, without `cart.` in front, so `this` is undefined. Wrap it: (x) => cart.add(x)."
+  },
+  {
+    "id": "09-why-pom",
+    "type": "concept",
+    "q": "Why do Playwright projects put pages in classes (Page Object Model)?",
+    "a": "Locators and actions for a page live in one place. Tests read like steps (loginPage.login(...)), and when the page changes you fix one class, not 50 tests."
+  }
+]

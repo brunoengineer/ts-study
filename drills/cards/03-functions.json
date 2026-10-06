@@ -1,0 +1,144 @@
+[
+  {
+    "id": "03-declaration-first-line",
+    "q": "Write the FIRST line of a function declaration `formatPrice` that takes `price` (number) and returns a string (end with the opening {).",
+    "a": "function formatPrice(price: number): string {",
+    "hint": "function name(param: type): returnType {",
+    "note": "Read it: function formatPrice, takes price of type number, returns a string."
+  },
+  {
+    "id": "03-return-template",
+    "q": "Inside formatPrice: return the price as text like '$7.50' (template literal + toFixed).",
+    "a": "return `$${price.toFixed(2)}`;"
+  },
+  {
+    "id": "03-arrow-expression",
+    "q": "Write an arrow function in a constant `double`: takes `n` (number), returns n * 2 (expression body, with the return type).",
+    "a": "const double = (n: number): number => n * 2;",
+    "alt": ["const double = (n: number) => n * 2;"]
+  },
+  {
+    "id": "03-arrow-boolean",
+    "q": "Write an arrow function `isAdmin`: takes `role` (string), returns a boolean: role is 'admin'.",
+    "a": "const isAdmin = (role: string): boolean => role === 'admin';",
+    "alt": ["const isAdmin = (role: string) => role === 'admin';"]
+  },
+  {
+    "id": "03-arrow-block-first-line",
+    "q": "Write the first line of an arrow `getTotal` with a BLOCK body: takes price (number) and quantity (number), returns a number.",
+    "a": "const getTotal = (price: number, quantity: number): number => {"
+  },
+  {
+    "id": "03-arrow-object",
+    "q": "Write an arrow `makeUser`: takes `username` (string), returns the object { username: username, role: 'user' } (expression body).",
+    "a": "const makeUser = (username: string) => ({ username: username, role: 'user' });",
+    "alt": ["const makeUser = (username: string) => ({ username, role: 'user' });"],
+    "note": "Without ( ), the { would start a block body and the function would return undefined."
+  },
+  {
+    "id": "03-default-param",
+    "q": "Write an arrow `buildUrl`: takes `path` (string) and `baseUrl` (string, default 'http://localhost:3000'), returns baseUrl + path (template literal, return type string).",
+    "a": "const buildUrl = (path: string, baseUrl: string = 'http://localhost:3000'): string => `${baseUrl}${path}`;",
+    "alt": ["const buildUrl = (path: string, baseUrl = 'http://localhost:3000'): string => `${baseUrl}${path}`;"]
+  },
+  {
+    "id": "03-optional-param",
+    "q": "Write just the parameter list for: `name` (string, required) and `role` (string, OPTIONAL).",
+    "a": "(name: string, role?: string)"
+  },
+  {
+    "id": "03-void",
+    "q": "Write the first line of a function declaration `logStep` that takes `step` (string) and returns nothing.",
+    "a": "function logStep(step: string): void {"
+  },
+  {
+    "id": "03-function-type",
+    "q": "Write the TYPE (only the type) of a function that takes `price` (number) and returns a number.",
+    "a": "(price: number) => number"
+  },
+  {
+    "id": "03-typed-const-function",
+    "q": "Declare `const toCents`, of type 'function from price (number) to number', with the value: an arrow returning Math.round(price * 100).",
+    "a": "const toCents: (price: number) => number = (price) => Math.round(price * 100);"
+  },
+  {
+    "id": "03-call-with-callback",
+    "q": "Call `applyRule` with 20 and an inline arrow that takes p and adds 5 to it.",
+    "a": "applyRule(20, (p) => p + 5)"
+  },
+  {
+    "id": "03-pass-reference",
+    "q": "Call `applyRule` with 50 and the existing function `halfPrice` (pass it, don't call it).",
+    "a": "applyRule(50, halfPrice)"
+  },
+  {
+    "id": "03-is-valid-email",
+    "q": "Write an arrow `isValidEmail`: takes email (string), returns boolean, using /^\\S+@\\S+\\.\\S+$/ and .test().",
+    "a": "const isValidEmail = (email: string): boolean => /^\\S+@\\S+\\.\\S+$/.test(email);"
+  },
+  {
+    "id": "03-random-email",
+    "q": "Write an arrow `randomEmail` with a `domain` parameter (string, default 'test.com') that returns user_ + Date.now() + @ + domain.",
+    "a": "const randomEmail = (domain: string = 'test.com'): string => `user_${Date.now()}@${domain}`;",
+    "alt": ["const randomEmail = (domain = 'test.com'): string => `user_${Date.now()}@${domain}`;"]
+  },
+  {
+    "id": "03-rest",
+    "q": "Write the parameter list of a function that accepts ANY number of number arguments, collected in `numbers`.",
+    "a": "(...numbers: number[])"
+  },
+  {
+    "id": "03-expression-vs-block",
+    "type": "concept",
+    "q": "Arrow function: expression body vs block body. When do you need to write `return`?",
+    "a": "Expression body (no { }) returns automatically: (n) => n * 2. Block body ({ }) needs an explicit return, otherwise it returns undefined."
+  },
+  {
+    "id": "03-fn-vs-call",
+    "type": "concept",
+    "q": "What is the difference between `getBaseUrl` and `getBaseUrl()`?",
+    "a": "getBaseUrl is the function itself (you can pass it around). getBaseUrl() CALLS it and gives you its result."
+  },
+  {
+    "id": "03-optional-vs-default",
+    "type": "concept",
+    "q": "role?: string vs role: string = 'user'. What is the value when the caller leaves it out?",
+    "a": "Optional (?) → undefined. Default (= 'user') → 'user'. Both can be left out by the caller."
+  },
+  {
+    "id": "03-param-vs-arg",
+    "type": "concept",
+    "q": "Parameter vs argument?",
+    "a": "Parameter = the name in the definition (price). Argument = the real value you pass in the call (29.99). They are matched by position."
+  },
+  {
+    "id": "03-callback",
+    "type": "concept",
+    "q": "What is a callback? Give an example you already use.",
+    "a": "A function you pass to another function, which calls it later. Example: the arrow function you pass to test('name', () => { ... })."
+  },
+  {
+    "id": "03-err-must-return",
+    "type": "concept",
+    "q": "Error: \"A function whose declared type is neither 'undefined', 'void', nor 'any' must return a value.\" Fix?",
+    "a": "You wrote a return type (e.g. : number) but the function has no return. Add return ... (often: a block body { } without return)."
+  },
+  {
+    "id": "03-err-not-assignable-fn",
+    "type": "concept",
+    "q": "Error: \"Type '() => string' is not assignable to type 'string'.\" What did you do?",
+    "a": "You used the function instead of its result: wrote getBaseUrl instead of getBaseUrl(). Add the ( )."
+  },
+  {
+    "id": "03-err-implicit-any",
+    "type": "concept",
+    "q": "Error: \"Parameter 'price' implicitly has an 'any' type.\" Fix?",
+    "a": "Give the parameter a type: (price: number). New functions always need types on their parameters."
+  },
+  {
+    "id": "03-naming",
+    "type": "concept",
+    "q": "How should you name a function that returns a boolean? And one that turns text into a number?",
+    "a": "Boolean: is/has/can... (isValidEmail, hasError). Text to value: parse... (parsePrice). Functions start with a verb."
+  }
+]

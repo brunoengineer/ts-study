@@ -1,0 +1,125 @@
+[
+  {
+    "id": "17-save-state",
+    "q": "Save the cookies + localStorage of the page's context to the file USER_STATE.",
+    "a": "await page.context().storageState({ path: USER_STATE });"
+  },
+  {
+    "id": "17-save-state-context",
+    "q": "Save the state of the `context` fixture to the file ADMIN_STATE.",
+    "a": "await context.storageState({ path: ADMIN_STATE });"
+  },
+  {
+    "id": "17-use-state",
+    "q": "Make every test in this file start logged in, with the state file USER_STATE.",
+    "a": "test.use({ storageState: USER_STATE });"
+  },
+  {
+    "id": "17-logged-out",
+    "q": "Make the tests in this describe start logged out (an empty storage state).",
+    "a": "test.use({ storageState: { cookies: [], origins: [] } });"
+  },
+  {
+    "id": "17-state-path",
+    "q": "Declare USER_STATE: the absolute path of '.auth/user.json' next to the current file (use path.join and import.meta.dirname).",
+    "a": "const USER_STATE = path.join(import.meta.dirname, '.auth', 'user.json');",
+    "alt": ["const USER_STATE = path.join(import.meta.dirname, '.auth/user.json');"]
+  },
+  {
+    "id": "17-setup-import",
+    "q": "In auth.setup.ts: import Playwright's test renamed to `setup`, and expect.",
+    "a": "import { test as setup, expect } from '@playwright/test';"
+  },
+  {
+    "id": "17-setup-project",
+    "q": "Config: write the project object named 'setup' that matches files ending in .setup.ts (regex).",
+    "a": "{ name: 'setup', testMatch: /.*\\.setup\\.ts/ }"
+  },
+  {
+    "id": "17-dependencies",
+    "q": "Config: write the project property that makes a project run AFTER the 'setup' project.",
+    "a": "dependencies: ['setup']"
+  },
+  {
+    "id": "17-project-state",
+    "q": "Config: inside a project, the `use` property that starts every test with 'playwright/.auth/user.json'.",
+    "a": "use: { storageState: 'playwright/.auth/user.json' }"
+  },
+  {
+    "id": "17-api-login",
+    "q": "Log in with the API: POST '/api/login' with username 'admin' and password 'admin123'. Store the result in `response`.",
+    "a": "const response = await request.post('/api/login', { data: { username: 'admin', password: 'admin123' } });"
+  },
+  {
+    "id": "17-read-token",
+    "q": "Read the `token` property out of the JSON body of `response` (destructuring).",
+    "a": "const { token } = await response.json();"
+  },
+  {
+    "id": "17-add-cookie",
+    "q": "Add the cookie named 'session' with the value `token` to the `context`, for the URL `baseURL`.",
+    "a": "await context.addCookies([{ name: 'session', value: token, url: baseURL }]);"
+  },
+  {
+    "id": "17-form-login",
+    "q": "Post the login FORM with the request fixture: '/login', username 'standard_user', password 'secret123'.",
+    "a": "await request.post('/login', { form: { username: 'standard_user', password: 'secret123' } });"
+  },
+  {
+    "id": "17-request-state",
+    "q": "Save the cookies of the `request` API context to the file USER_STATE.",
+    "a": "await request.storageState({ path: USER_STATE });"
+  },
+  {
+    "id": "17-env-fallback",
+    "q": "Declare ADMIN_PASSWORD from the environment variable SHOP_ADMIN_PASSWORD, falling back to 'admin123'.",
+    "a": "const ADMIN_PASSWORD = process.env.SHOP_ADMIN_PASSWORD ?? 'admin123';"
+  },
+  {
+    "id": "17-admin-context",
+    "q": "Create a second context, `adminContext`, from `browser`, that starts with the state ADMIN_STATE.",
+    "a": "const adminContext = await browser.newContext({ storageState: ADMIN_STATE });"
+  },
+  {
+    "id": "17-wait-before-save",
+    "q": "In a UI login setup: after clicking 'Log in', wait until the URL contains /products (before saving the state).",
+    "a": "await expect(page).toHaveURL(/\\/products/);",
+    "alt": ["await expect(page).toHaveURL(/products/);"]
+  },
+  {
+    "id": "17-why-storage-state",
+    "type": "concept",
+    "q": "Why not log in through the UI in every test?",
+    "a": "It's slow (one login per test), it adds flakiness, it loads the login service, and a login page change breaks every test. Log in once (setup), save storageState, reuse it. Only login tests use the login form."
+  },
+  {
+    "id": "17-what-is-state",
+    "type": "concept",
+    "q": "What is inside a storageState file?",
+    "a": "All cookies (like the session cookie) and the localStorage of each origin of the context: { cookies: [...], origins: [...] }."
+  },
+  {
+    "id": "17-gitignore",
+    "type": "concept",
+    "q": "Why is .auth/ in .gitignore?",
+    "a": "The files hold real, working session cookies (anyone with them is logged in), and they go stale. Generate them on every run with the setup project instead."
+  },
+  {
+    "id": "17-enoent",
+    "type": "concept",
+    "q": "Error reading storage state from .auth/admin.json: ENOENT: no such file or directory. Two possible causes?",
+    "a": "1) a relative path is read from the folder you run from (the root), not the test's folder: use an absolute path; 2) the setup project didn't run or failed."
+  },
+  {
+    "id": "17-did-not-run",
+    "type": "concept",
+    "q": "Your setup test fails. What happens to the tests in a project with dependencies: ['setup']?",
+    "a": "They don't run (reported as 'did not run'). Fix the setup first."
+  },
+  {
+    "id": "17-logout-danger",
+    "type": "concept",
+    "q": "Why should a test NOT click 'Log out' while using the shared user.json state?",
+    "a": "Logging out deletes that session on the server, so every other test that uses user.json is logged out too. Log out only with the test's own fresh session."
+  }
+]

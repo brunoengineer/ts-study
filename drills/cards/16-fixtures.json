@@ -1,0 +1,141 @@
+[
+  {
+    "id": "16-import-base",
+    "q": "Import Playwright's test RENAMED to `base`, and expect, from '@playwright/test'.",
+    "a": "import { test as base, expect } from '@playwright/test';",
+    "hint": "import { original as newName } from '...';"
+  },
+  {
+    "id": "16-extend-type",
+    "q": "Create (and export) `test` by extending `base` with ONE fixture `loginPage` of type LoginPage. Write only the first line, ending with `({`.",
+    "a": "export const test = base.extend<{ loginPage: LoginPage }>({",
+    "alt": ["const test = base.extend<{ loginPage: LoginPage }>({"]
+  },
+  {
+    "id": "16-fixture-signature",
+    "q": "Write the first line of a fixture called `loginPage` that needs the `page` fixture (ending with `{`).",
+    "a": "loginPage: async ({ page }, use) => {",
+    "hint": "name: async ({ fixtures it needs }, use) => {"
+  },
+  {
+    "id": "16-use-new",
+    "q": "Inside the loginPage fixture: hand a new LoginPage built with `page` to the test.",
+    "a": "await use(new LoginPage(page));"
+  },
+  {
+    "id": "16-use-value",
+    "q": "Inside a fixture: hand the string 'QA Shop' to the test.",
+    "a": "await use('QA Shop');"
+  },
+  {
+    "id": "16-no-deps",
+    "q": "First line of a fixture `shopName` that needs NO other fixtures (ending with `{`).",
+    "a": "shopName: async ({}, use) => {",
+    "note": "Playwright needs the { } even when it's empty."
+  },
+  {
+    "id": "16-anatomy",
+    "type": "concept",
+    "q": "What are the 3 parts of a fixture function, in order? When does each part run?",
+    "a": "1) setup: before the test. 2) await use(value): the test runs during this line. 3) teardown: after the test, even if it failed."
+  },
+  {
+    "id": "16-forgot-await",
+    "type": "concept",
+    "q": "Your fixture's teardown runs BEFORE the test (data is already deleted when the test starts). What is the bug?",
+    "a": "use(value) without await. Write await use(value); so the fixture waits for the test to finish."
+  },
+  {
+    "id": "16-teardown-delete",
+    "q": "Teardown line: delete the product with id `product.id` via the API, sending the `headers` variable.",
+    "a": "await request.delete(`/api/products/${product.id}`, { headers });"
+  },
+  {
+    "id": "16-auto",
+    "q": "Write the options object that makes a fixture run for every test automatically.",
+    "a": "{ auto: true }"
+  },
+  {
+    "id": "16-auto-shape",
+    "q": "First line of an auto fixture `resetShop` that needs `request` (it's an ARRAY: [function, options]). End with `{`.",
+    "a": "resetShop: [async ({ request }, use) => {",
+    "hint": "name: [async (...) => { ... }, { auto: true }]"
+  },
+  {
+    "id": "16-use-void",
+    "q": "Inside an auto fixture that gives the test nothing: let the test run.",
+    "a": "await use();"
+  },
+  {
+    "id": "16-option",
+    "q": "Define an option fixture `shopUser` with the default value 'standard_user'.",
+    "a": "shopUser: ['standard_user', { option: true }],",
+    "alt": ["shopUser: ['standard_user', { option: true }]"]
+  },
+  {
+    "id": "16-test-use",
+    "q": "Inside a describe, change the option `shopUser` to 'admin'.",
+    "a": "test.use({ shopUser: 'admin' });"
+  },
+  {
+    "id": "16-worker-type",
+    "q": "First line of an extend with NO test fixtures and ONE worker fixture `adminToken` (string). End with `({`.",
+    "a": "const test = base.extend<{}, { adminToken: string }>({",
+    "alt": ["export const test = base.extend<{}, { adminToken: string }>({"]
+  },
+  {
+    "id": "16-worker-scope",
+    "q": "Write the options object that makes a fixture worker-scoped.",
+    "a": "{ scope: 'worker' }"
+  },
+  {
+    "id": "16-worker-request",
+    "q": "In a worker fixture (no `request` fixture available): create an API context with baseURL 'http://localhost:3000', called `api`.",
+    "a": "const api = await playwright.request.newContext({ baseURL: 'http://localhost:3000' });"
+  },
+  {
+    "id": "16-merge",
+    "q": "Create and export `test` that combines `pagesTest` and `apiTest`.",
+    "a": "export const test = mergeTests(pagesTest, apiTest);",
+    "alt": ["const test = mergeTests(pagesTest, apiTest);"]
+  },
+  {
+    "id": "16-export-expect",
+    "q": "Last line of fixtures.ts: export `expect` so spec files only need one import.",
+    "a": "export { expect };",
+    "alt": ["export { expect } from '@playwright/test';"]
+  },
+  {
+    "id": "16-import-fixtures",
+    "q": "In a spec file: import test and expect from your own file './fixtures'.",
+    "a": "import { test, expect } from './fixtures';"
+  },
+  {
+    "id": "16-testinfo-param",
+    "q": "Write the first line of a test 'x' that takes `page` AND testInfo (2nd parameter). End with `{`.",
+    "a": "test('x', async ({ page }, testInfo) => {"
+  },
+  {
+    "id": "16-new-context",
+    "q": "Create a new, separate browser context from the `browser` fixture, called `otherContext`.",
+    "a": "const otherContext = await browser.newContext();"
+  },
+  {
+    "id": "16-layers",
+    "type": "concept",
+    "q": "browser, context, page: what is each one, and which one holds the cookies?",
+    "a": "browser = the browser process. context = an isolated 'incognito window' that holds cookies and storage. page = one tab inside a context. New context = new cookies = logged out."
+  },
+  {
+    "id": "16-unknown-param",
+    "type": "concept",
+    "q": "Error: Test has unknown parameter \"loginPage\". What happened?",
+    "a": "The test asks for a fixture its `test` doesn't have. Usually you imported test from '@playwright/test' instead of from your fixtures file."
+  },
+  {
+    "id": "16-fixture-vs-beforeeach",
+    "type": "concept",
+    "q": "Name two advantages of fixtures over beforeEach/afterEach.",
+    "a": "They run only when a test asks for them (lazy); setup and teardown live in one function; the value goes straight into the test; written once and reused in every file."
+  }
+]

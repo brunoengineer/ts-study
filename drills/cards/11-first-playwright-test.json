@@ -1,0 +1,148 @@
+[
+  {
+    "id": "11-test-shape",
+    "q": "Write the first line of a browser test called 'login works' that uses the page fixture (end with the opening {).",
+    "a": "test('login works', async ({ page }) => {",
+    "hint": "test('name', async ({ fixture }) => {",
+    "note": "async because the body uses await; { page } is destructuring of the fixtures object."
+  },
+  {
+    "id": "11-goto",
+    "q": "Open the login page using a relative URL.",
+    "a": "await page.goto('/login');",
+    "note": "baseURL in playwright.config.ts adds http://localhost:3000"
+  },
+  {
+    "id": "11-to-have-title",
+    "q": "Assert the page has the title 'Login | QA Shop'.",
+    "a": "await expect(page).toHaveTitle('Login | QA Shop');"
+  },
+  {
+    "id": "11-to-have-url-regex",
+    "q": "Assert the URL contains 'products' (use a regex).",
+    "a": "await expect(page).toHaveURL(/products/);",
+    "alt": ["await expect(page).toHaveURL(/\\/products/);"]
+  },
+  {
+    "id": "11-page-title",
+    "q": "Store the current page title in a constant `title` (a plain string, read once).",
+    "a": "const title = await page.title();"
+  },
+  {
+    "id": "11-page-url",
+    "q": "Store the current URL in a constant `url`.",
+    "a": "const url = page.url();",
+    "note": "No await: page.url() is not a Promise."
+  },
+  {
+    "id": "11-click-button",
+    "q": "Click the button named 'Log in'.",
+    "a": "await page.getByRole('button', { name: 'Log in' }).click();"
+  },
+  {
+    "id": "11-click-link",
+    "q": "Click the link named 'Playground'.",
+    "a": "await page.getByRole('link', { name: 'Playground' }).click();"
+  },
+  {
+    "id": "11-fill-textbox",
+    "q": "Fill the textbox named 'Username' with 'standard_user' (use getByRole).",
+    "a": "await page.getByRole('textbox', { name: 'Username' }).fill('standard_user');",
+    "alt": ["await page.getByLabel('Username').fill('standard_user');"]
+  },
+  {
+    "id": "11-fill-password",
+    "q": "Fill the field labelled 'Password' with 'secret123'.",
+    "a": "await page.getByLabel('Password').fill('secret123');",
+    "note": "Password inputs have no ARIA role, so getByRole('textbox') does not find them."
+  },
+  {
+    "id": "11-visible-heading",
+    "q": "Assert the heading 'Products' is visible.",
+    "a": "await expect(page.getByRole('heading', { name: 'Products' })).toBeVisible();"
+  },
+  {
+    "id": "11-have-text-testid",
+    "q": "Assert the element with test id 'counter' has the text '2'.",
+    "a": "await expect(page.getByTestId('counter')).toHaveText('2');"
+  },
+  {
+    "id": "11-before-each",
+    "q": "Write a beforeEach hook (one line) that opens '/playground'.",
+    "a": "test.beforeEach(async ({ page }) => { await page.goto('/playground'); });",
+    "alt": ["test.beforeEach(async ({ page }) => await page.goto('/playground'));"]
+  },
+  {
+    "id": "11-reset-hook",
+    "q": "Write a beforeEach hook (one line) that resets QA Shop with POST /api/reset using the request fixture.",
+    "a": "test.beforeEach(async ({ request }) => { await request.post('/api/reset'); });"
+  },
+  {
+    "id": "11-describe",
+    "q": "Open a group of tests called 'login' (end with the opening {).",
+    "a": "test.describe('login', () => {",
+    "note": "The describe callback is NOT async and gets no fixtures."
+  },
+  {
+    "id": "11-only",
+    "q": "Write the first line of a test 'debug me' that runs ALONE (focused). End with the opening {.",
+    "a": "test.only('debug me', async ({ page }) => {"
+  },
+  {
+    "id": "11-pause",
+    "q": "Stop the test here and open the Playwright Inspector.",
+    "a": "await page.pause();"
+  },
+  {
+    "id": "11-codegen",
+    "q": "Command: start codegen recording against QA Shop on port 3000.",
+    "a": "npx playwright codegen http://localhost:3000"
+  },
+  {
+    "id": "11-check-ui",
+    "q": "Command: open module 11 in Playwright UI mode (course script).",
+    "a": "npm run check 11 ui"
+  },
+  {
+    "id": "11-hooks-order",
+    "type": "concept",
+    "q": "In what order do the hooks run for a describe with 2 tests?",
+    "a": "beforeAll -> beforeEach -> test 1 -> afterEach -> beforeEach -> test 2 -> afterEach -> afterAll"
+  },
+  {
+    "id": "11-why-await",
+    "type": "concept",
+    "q": "Which lines in a Playwright test need await?",
+    "a": "Every line that talks to the browser: goto, click, fill, title(), textContent(), and every web-first assertion await expect(locator/page)...  (page.url() and creating a locator don't need it)."
+  },
+  {
+    "id": "11-codegen-cleanup",
+    "type": "concept",
+    "q": "After recording with codegen, what do you clean up?",
+    "a": "Full URLs -> relative; remove noise (click before fill, press Tab); check every locator is user-facing and stable; ADD assertions; read it aloud."
+  },
+  {
+    "id": "11-err-promise",
+    "type": "concept",
+    "q": "Error: Expected: \"Login | QA Shop\"  Received: Promise {}. What happened?",
+    "a": "A missing await: you compared the Promise returned by page.title() (or similar), not its value."
+  },
+  {
+    "id": "11-err-destructure",
+    "type": "concept",
+    "q": "Error: First argument must use the object destructuring pattern: 'page'. What happened?",
+    "a": "You wrote async (page) => instead of async ({ page }) =>. Fixtures must be destructured."
+  },
+  {
+    "id": "11-err-beforeall-page",
+    "type": "concept",
+    "q": "Error: \"context\" and \"page\" fixtures are not supported in \"beforeAll\". Why?",
+    "a": "beforeAll runs once for many tests, but each test gets its own new page. Do page work in beforeEach."
+  },
+  {
+    "id": "11-timeouts",
+    "type": "concept",
+    "q": "What is the difference between `timeout` and `expect.timeout` in playwright.config.ts?",
+    "a": "timeout = max time for a whole test (30 s here). expect.timeout = how long ONE await expect(...) keeps retrying (5 s here)."
+  }
+]

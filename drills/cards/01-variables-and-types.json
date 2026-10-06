@@ -1,0 +1,105 @@
+[
+  {
+    "id": "01-const-annotated",
+    "q": "Declare a constant `baseUrl`, of type string, with value 'http://localhost:3000'.",
+    "a": "const baseUrl: string = 'http://localhost:3000';",
+    "hint": "const name: type = value;",
+    "note": "Read the colon as 'of type'."
+  },
+  {
+    "id": "01-let-number",
+    "q": "Declare a variable `retries` (it must change later) of type number, starting at 0.",
+    "a": "let retries: number = 0;",
+    "alt": ["let retries = 0;"]
+  },
+  {
+    "id": "01-boolean",
+    "q": "Declare a constant `isHeadless`, of type boolean, with value true.",
+    "a": "const isHeadless: boolean = true;"
+  },
+  {
+    "id": "01-plusplus",
+    "q": "Add exactly 1 to the variable `attempts` (shortest way).",
+    "a": "attempts++;",
+    "alt": ["attempts += 1;", "attempts = attempts + 1;"]
+  },
+  {
+    "id": "01-pluseq",
+    "q": "Add 5 to the variable `score` using the short operator.",
+    "a": "score += 5;",
+    "alt": ["score = score + 5;"]
+  },
+  {
+    "id": "01-declare-no-value",
+    "q": "Declare a variable `username` of type string WITHOUT giving it a value.",
+    "a": "let username: string;"
+  },
+  {
+    "id": "01-typeof-check",
+    "q": "Write the expression that is true when `value` is a number (use typeof).",
+    "a": "typeof value === 'number'"
+  },
+  {
+    "id": "01-strict-equal",
+    "q": "Write the expression: `status` is strictly NOT equal to 200.",
+    "a": "status !== 200"
+  },
+  {
+    "id": "01-upper-snake",
+    "q": "Declare a fixed config constant for a timeout of 30 seconds (in ms, with a _ separator, UPPER_SNAKE_CASE name DEFAULT_TIMEOUT).",
+    "a": "const DEFAULT_TIMEOUT = 30_000;"
+  },
+  {
+    "id": "01-assert-typeof",
+    "q": "Assert that the type of `timeout` is 'number'.",
+    "a": "expect(typeof timeout).toBe('number');"
+  },
+  {
+    "id": "01-const-vs-let",
+    "type": "concept",
+    "q": "const vs let: what is the difference and which one do you start with?",
+    "a": "const can never be reassigned; let can. Always start with const, switch to let only when the value must change."
+  },
+  {
+    "id": "01-primitives",
+    "type": "concept",
+    "q": "Name the 5 basic types you will use the most.",
+    "a": "string, number, boolean, undefined, null"
+  },
+  {
+    "id": "01-typeof-null",
+    "type": "concept",
+    "q": "What does typeof null return?",
+    "a": "'object' (a famous JavaScript bug that was never fixed)."
+  },
+  {
+    "id": "01-eq-vs-eqeqeq",
+    "type": "concept",
+    "q": "What is the difference between = and === ?",
+    "a": "= puts a value into a variable (assignment). === asks 'are these equal?' (strict comparison, checks type too). Never use ==."
+  },
+  {
+    "id": "01-err-cannot-find",
+    "type": "concept",
+    "q": "Error: \"Cannot find name 'baseUrl'\". What does it mean?",
+    "a": "The variable doesn't exist where you're using it: a typo, it was never declared, or it lives in another scope ({ } block)."
+  },
+  {
+    "id": "01-err-not-assignable",
+    "type": "concept",
+    "q": "Error: \"Type 'string' is not assignable to type 'number'\". What does it mean?",
+    "a": "You put a value of the wrong type in a variable. The box is labelled number but you gave it a string. Fix the value or the type."
+  },
+  {
+    "id": "01-err-const",
+    "type": "concept",
+    "q": "Error: \"Cannot assign to 'counter' because it is a constant\". Fix?",
+    "a": "You're changing a const. If it really must change, declare it with let."
+  },
+  {
+    "id": "01-scope",
+    "type": "concept",
+    "q": "Where does a const or let declared inside { } exist?",
+    "a": "Only inside those { } (block scope). That's why every test can have its own variables with the same names."
+  }
+]

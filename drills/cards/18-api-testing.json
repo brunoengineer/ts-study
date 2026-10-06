@@ -1,0 +1,128 @@
+[
+  {
+    "id": "18-get",
+    "q": "Send GET '/api/products' with the request fixture. Store it in `response`.",
+    "a": "const response = await request.get('/api/products');"
+  },
+  {
+    "id": "18-get-params",
+    "q": "GET '/api/products' with the query parameter category = 'clothes' (use the params option). Store it in `response`.",
+    "a": "const response = await request.get('/api/products', { params: { category: 'clothes' } });"
+  },
+  {
+    "id": "18-post-data",
+    "q": "POST '/api/login' with the JSON body username 'admin', password 'admin123'. Store it in `response`.",
+    "a": "const response = await request.post('/api/login', { data: { username: 'admin', password: 'admin123' } });"
+  },
+  {
+    "id": "18-bearer-headers",
+    "q": "Declare `headers`: an object with the Authorization header 'Bearer ' + token (template string).",
+    "a": "const headers = { Authorization: `Bearer ${token}` };"
+  },
+  {
+    "id": "18-post-headers-data",
+    "q": "POST '/api/products' with the `headers` variable and the data name 'Mug', price 5. Store it in `response`.",
+    "a": "const response = await request.post('/api/products', { headers, data: { name: 'Mug', price: 5 } });",
+    "alt": ["const response = await request.post('/api/products', { data: { name: 'Mug', price: 5 }, headers });"]
+  },
+  {
+    "id": "18-patch",
+    "q": "PATCH '/api/products/2' with the `headers` variable and the data price 12.99. Store it in `response`.",
+    "a": "const response = await request.patch('/api/products/2', { headers, data: { price: 12.99 } });"
+  },
+  {
+    "id": "18-delete",
+    "q": "DELETE '/api/products/6' with the `headers` variable. Store it in `response`.",
+    "a": "const response = await request.delete('/api/products/6', { headers });"
+  },
+  {
+    "id": "18-tobeok",
+    "q": "Assert that `response` has a 2xx status, with the matcher made for responses.",
+    "a": "await expect(response).toBeOK();"
+  },
+  {
+    "id": "18-status",
+    "q": "Assert that the status code of `response` is 201.",
+    "a": "expect(response.status()).toBe(201);"
+  },
+  {
+    "id": "18-status-message",
+    "q": "Assert the status of `response` is 201, with the response body text as the custom message.",
+    "a": "expect(response.status(), await response.text()).toBe(201);"
+  },
+  {
+    "id": "18-json-typed",
+    "q": "Read the body of `response` as JSON into `products`, typed as an array of Product.",
+    "a": "const products: Product[] = await response.json();"
+  },
+  {
+    "id": "18-header-read",
+    "q": "Read the content-type header of `response`.",
+    "a": "response.headers()['content-type']"
+  },
+  {
+    "id": "18-object-containing",
+    "q": "Assert `created` has AT LEAST name 'Mug' and price 5 (other fields don't matter).",
+    "a": "expect(created).toEqual(expect.objectContaining({ name: 'Mug', price: 5 }));"
+  },
+  {
+    "id": "18-any-number",
+    "q": "Inside toEqual({...}): the value for `id` that matches any number.",
+    "a": "expect.any(Number)"
+  },
+  {
+    "id": "18-array-containing",
+    "q": "Assert the array `products` contains an item with name 'Backpack' (objectContaining inside arrayContaining).",
+    "a": "expect(products).toEqual(expect.arrayContaining([expect.objectContaining({ name: 'Backpack' })]));"
+  },
+  {
+    "id": "18-import-request",
+    "q": "Import Playwright's `request` (to create API contexts) renamed to playwrightRequest.",
+    "a": "import { request as playwrightRequest } from '@playwright/test';"
+  },
+  {
+    "id": "18-new-context",
+    "q": "Create `api` with playwrightRequest.newContext, with the `baseURL` variable and extraHTTPHeaders set to the `headers` variable.",
+    "a": "const api = await playwrightRequest.newContext({ baseURL, extraHTTPHeaders: headers });"
+  },
+  {
+    "id": "18-dispose",
+    "q": "Close the API context `api` when you're done with it.",
+    "a": "await api.dispose();"
+  },
+  {
+    "id": "18-page-request",
+    "q": "With the cookies of the page: POST '/api/cart' with productId 4, quantity 2.",
+    "a": "await page.request.post('/api/cart', { data: { productId: 4, quantity: 2 } });"
+  },
+  {
+    "id": "18-401-403",
+    "type": "concept",
+    "q": "401 vs 403: what's the difference?",
+    "a": "401 Unauthorized: the server doesn't know who you are (no/invalid token, wrong password). 403 Forbidden: it knows you, but you're not allowed (normal user creating a product, locked user)."
+  },
+  {
+    "id": "18-status-codes",
+    "type": "concept",
+    "q": "What do 201, 204, 400, 404 and 409 mean?",
+    "a": "201 Created; 204 No Content (success, empty body); 400 Bad Request (your data is wrong); 404 Not Found; 409 Conflict with the current state (out of stock, already exists)."
+  },
+  {
+    "id": "18-unexpected-token",
+    "type": "concept",
+    "q": "SyntaxError: Unexpected token '<', \"<!doctype \"... is not valid JSON. What happened?",
+    "a": "You called response.json() on an HTML page, usually a wrong URL (e.g. /products instead of /api/products). Print await response.text() to see it."
+  },
+  {
+    "id": "18-hybrid",
+    "type": "concept",
+    "q": "What is a hybrid test? Give the two directions.",
+    "a": "A test that uses API and UI together: seed data with the API then check it in the UI; or act in the UI then check the result with the API."
+  },
+  {
+    "id": "18-typing-json",
+    "type": "concept",
+    "q": "`const p: Product = await response.json()`: does TypeScript check that the API really sent a Product?",
+    "a": "No. It's a promise you make to TypeScript (for autocomplete and typo checks). Assert the shape with expect to really check it."
+  }
+]

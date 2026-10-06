@@ -1,0 +1,146 @@
+[
+  {
+    "id": "20-config-port",
+    "q": "Config: declare PORT from the env variable PORT as a number, falling back to 3000.",
+    "a": "const PORT = Number(process.env.PORT ?? 3000);"
+  },
+  {
+    "id": "20-config-export",
+    "q": "Config: the opening line of the config object (export it, use defineConfig). End with `({`.",
+    "a": "export default defineConfig({"
+  },
+  {
+    "id": "20-config-baseurl",
+    "q": "Config: the `use` property with baseURL http://localhost: + PORT (template string).",
+    "a": "use: { baseURL: `http://localhost:${PORT}` }"
+  },
+  {
+    "id": "20-webserver-command",
+    "q": "Config in final-project/: the webServer `command` property that starts ../practice-app/server.mjs with node.",
+    "a": "command: 'node ../practice-app/server.mjs'"
+  },
+  {
+    "id": "20-webserver-url",
+    "q": "Config: the webServer `url` property: the /api/health endpoint on PORT (template string).",
+    "a": "url: `http://localhost:${PORT}/api/health`"
+  },
+  {
+    "id": "20-reporter",
+    "q": "Config: the reporter property with the list reporter AND the html reporter that never opens automatically.",
+    "a": "reporter: [['list'], ['html', { open: 'never' }]]"
+  },
+  {
+    "id": "20-setup-project",
+    "q": "Config: the setup project object (name 'setup', matches files ending in .setup.ts).",
+    "a": "{ name: 'setup', testMatch: /.*\\.setup\\.ts/ }"
+  },
+  {
+    "id": "20-ui-project",
+    "q": "Config: a project 'ui' with testDir './tests/ui', storageState USER_STATE and a dependency on 'setup'.",
+    "a": "{ name: 'ui', testDir: './tests/ui', use: { storageState: USER_STATE }, dependencies: ['setup'] }"
+  },
+  {
+    "id": "20-state-path",
+    "q": "utils/env.ts: export USER_STATE, the absolute path of ../.auth/user.json from this file's folder.",
+    "a": "export const USER_STATE = path.join(import.meta.dirname, '..', '.auth', 'user.json');"
+  },
+  {
+    "id": "20-basepage",
+    "q": "pages/BasePage.ts: the opening line of the exported abstract class BasePage. End with `{`.",
+    "a": "export abstract class BasePage {"
+  },
+  {
+    "id": "20-abstract-path",
+    "q": "Inside BasePage: declare an abstract, readonly property `path` of type string.",
+    "a": "abstract readonly path: string;"
+  },
+  {
+    "id": "20-base-constructor",
+    "q": "Inside BasePage: a constructor that stores `page` (type Page) as a readonly property, with an empty body.",
+    "a": "constructor(readonly page: Page) {}"
+  },
+  {
+    "id": "20-extends",
+    "q": "pages/LoginPage.ts: the opening line of the exported class LoginPage that extends BasePage. End with `{`.",
+    "a": "export class LoginPage extends BasePage {"
+  },
+  {
+    "id": "20-super",
+    "q": "First line inside the LoginPage constructor: call the parent constructor with page.",
+    "a": "super(page);"
+  },
+  {
+    "id": "20-path-value",
+    "q": "Inside LoginPage: set the readonly `path` property to '/login'.",
+    "a": "readonly path = '/login';"
+  },
+  {
+    "id": "20-api-private-token",
+    "q": "Inside ApiClient: a private property `token` that is a string or undefined (no value yet).",
+    "a": "private token: string | undefined;"
+  },
+  {
+    "id": "20-api-constructor",
+    "q": "ApiClient constructor: store `request` (APIRequestContext) as a private readonly property, empty body.",
+    "a": "constructor(private readonly request: APIRequestContext) {}"
+  },
+  {
+    "id": "20-api-throw",
+    "q": "Inside an ApiClient method: if `response` is not OK, throw an Error with the text 'failed: ' + status (template string).",
+    "a": "if (!response.ok()) throw new Error(`failed: ${response.status()}`);"
+  },
+  {
+    "id": "20-rejects",
+    "q": "Assert that the promise api.createProduct(data) rejects with an error containing 403 (regex).",
+    "a": "await expect(api.createProduct(data)).rejects.toThrow(/403/);"
+  },
+  {
+    "id": "20-fixture-api",
+    "q": "fixtures/index.ts: the complete `api` fixture: needs request, hands a new ApiClient(request) to the test (one line).",
+    "a": "api: async ({ request }, use) => { await use(new ApiClient(request)); },",
+    "alt": ["api: async ({ request }, use) => { await use(new ApiClient(request)); }"]
+  },
+  {
+    "id": "20-spec-import",
+    "q": "In tests/ui/cart.spec.ts: import test and expect from your fixtures folder.",
+    "a": "import { test, expect } from '../../fixtures';"
+  },
+  {
+    "id": "20-reset-each",
+    "q": "In a spec: before each test, reset the shop with your `api` fixture.",
+    "a": "test.beforeEach(async ({ api }) => { await api.reset(); });"
+  },
+  {
+    "id": "20-run-config",
+    "q": "Terminal: run the suite of the config in the folder final-project.",
+    "a": "npx playwright test -c final-project"
+  },
+  {
+    "id": "20-show-report",
+    "q": "Terminal: open the HTML report of the last run.",
+    "a": "npx playwright show-report"
+  },
+  {
+    "id": "20-ci-install",
+    "q": "CI step: install only Chromium plus the system libraries it needs.",
+    "a": "npx playwright install --with-deps chromium"
+  },
+  {
+    "id": "20-layers",
+    "type": "concept",
+    "q": "Name the 5 folders of your framework and what lives in each one.",
+    "a": "pages/ (page objects), api/ (API client), utils/ (types, test data, env), fixtures/ (extends test, exports test + expect), tests/ (setup + ui, api, hybrid specs)."
+  },
+  {
+    "id": "20-why-throw",
+    "type": "concept",
+    "q": "Why should every ApiClient method throw when the response is not 2xx?",
+    "a": "So a failing setup call can never fail silently and break a later step with a confusing error. Tests that expect an error say so with rejects.toThrow()."
+  },
+  {
+    "id": "20-ci-secrets",
+    "type": "concept",
+    "q": "In GitHub Actions, how does a password reach your tests without being in the code?",
+    "a": "Store it as a repository secret, pass it as an env variable in the workflow step (env: X: ${{ secrets.X }}), and read process.env.X with a fallback for local runs."
+  }
+]

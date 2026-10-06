@@ -1,0 +1,140 @@
+[
+  {
+    "id": "12-role-button",
+    "q": "Create a constant `addButton`: the button named 'Add to cart'.",
+    "a": "const addButton = page.getByRole('button', { name: 'Add to cart' });",
+    "note": "No await: a locator is only a description."
+  },
+  {
+    "id": "12-role-exact",
+    "q": "Locator: the button whose name is EXACTLY 'Add' (not 'Add to cart').",
+    "a": "page.getByRole('button', { name: 'Add', exact: true })"
+  },
+  {
+    "id": "12-role-heading-level",
+    "q": "Locator: the level 1 heading named 'Products'.",
+    "a": "page.getByRole('heading', { name: 'Products', level: 1 })"
+  },
+  {
+    "id": "12-role-regex",
+    "q": "Locator: the link whose name STARTS WITH 'Cart' (regex /^Cart/), whatever number follows.",
+    "a": "page.getByRole('link', { name: /^Cart/ })"
+  },
+  {
+    "id": "12-role-checkbox",
+    "q": "Locator: the checkbox named 'I agree to the terms'.",
+    "a": "page.getByRole('checkbox', { name: 'I agree to the terms' })"
+  },
+  {
+    "id": "12-label",
+    "q": "Locator: the input with the label 'Email'.",
+    "a": "page.getByLabel('Email')"
+  },
+  {
+    "id": "12-placeholder",
+    "q": "Locator: the input with the placeholder 'What needs to be done?'.",
+    "a": "page.getByPlaceholder('What needs to be done?')"
+  },
+  {
+    "id": "12-text-exact",
+    "q": "Locator: elements whose WHOLE text is exactly 'QA'.",
+    "a": "page.getByText('QA', { exact: true })"
+  },
+  {
+    "id": "12-text-regex",
+    "q": "Locator: the text matching 'hello, sam' ignoring case (regex).",
+    "a": "page.getByText(/hello, sam/i)"
+  },
+  {
+    "id": "12-testid",
+    "q": "Locator: the element with data-testid=\"cart-count\".",
+    "a": "page.getByTestId('cart-count')"
+  },
+  {
+    "id": "12-css",
+    "q": "Locator (CSS, last resort): elements with the class 'price'.",
+    "a": "page.locator('.price')"
+  },
+  {
+    "id": "12-chain",
+    "q": "Create `rows`: the rows INSIDE the table named 'Employees'.",
+    "a": "const rows = page.getByRole('table', { name: 'Employees' }).getByRole('row');"
+  },
+  {
+    "id": "12-filter-hastext",
+    "q": "From `rows`, keep the row that has the text 'Eva Rocha'.",
+    "a": "rows.filter({ hasText: 'Eva Rocha' })"
+  },
+  {
+    "id": "12-filter-has",
+    "q": "From `rows`, keep the rows that contain a button (any button).",
+    "a": "rows.filter({ has: page.getByRole('button') })"
+  },
+  {
+    "id": "12-filter-hasnottext",
+    "q": "From `rows`, keep the rows that do NOT contain the text 'QA'.",
+    "a": "rows.filter({ hasNotText: 'QA' })"
+  },
+  {
+    "id": "12-click-in-row",
+    "q": "Click the 'Edit' button inside the row of `rows` that has the text 'Carla Souza'.",
+    "a": "await rows.filter({ hasText: 'Carla Souza' }).getByRole('button', { name: 'Edit' }).click();"
+  },
+  {
+    "id": "12-nth",
+    "q": "Locator: the SECOND element of `rows`.",
+    "a": "rows.nth(1)",
+    "note": "nth starts at 0."
+  },
+  {
+    "id": "12-count",
+    "q": "Store the number of elements matching `rows` in a constant `n`.",
+    "a": "const n = await rows.count();"
+  },
+  {
+    "id": "12-all-text",
+    "q": "Store the texts of all product headings (`page.getByTestId('product-card').getByRole('heading')`) in `names`.",
+    "a": "const names = await page.getByTestId('product-card').getByRole('heading').allTextContents();"
+  },
+  {
+    "id": "12-or",
+    "q": "Locator: the button 'Add to cart' OR the button 'Sold out' (use or).",
+    "a": "page.getByRole('button', { name: 'Add to cart' }).or(page.getByRole('button', { name: 'Sold out' }))"
+  },
+  {
+    "id": "12-strict",
+    "type": "concept",
+    "q": "Error: strict mode violation: getByRole('button', { name: 'Edit' }) resolved to 5 elements. What does it mean and how do you fix it?",
+    "a": "An action needs exactly one element, but the locator matches 5. Make it precise: chain/filter (e.g. the row with 'Eva Rocha', then its Edit button). Use first()/nth() only if position is what you mean."
+  },
+  {
+    "id": "12-priority",
+    "type": "concept",
+    "q": "Locator priority, from best to last resort?",
+    "a": "getByRole > getByLabel > getByPlaceholder > getByText > getByAltText/getByTitle > getByTestId > locator('css')"
+  },
+  {
+    "id": "12-name-matching",
+    "type": "concept",
+    "q": "How does { name: 'Open' } match by default?",
+    "a": "Substring and case-insensitive: 'Open alert', 'open confirm'... all match. Use exact: true or a regex to be strict."
+  },
+  {
+    "id": "12-password-role",
+    "type": "concept",
+    "q": "Why does getByRole('textbox', { name: 'Password' }) find nothing?",
+    "a": "<input type=\"password\"> has no ARIA role. Use getByLabel('Password')."
+  },
+  {
+    "id": "12-lazy",
+    "type": "concept",
+    "q": "Does `const btn = page.getByRole('button', { name: 'Add' });` need await? Why?",
+    "a": "No. Creating a locator only describes the element; Playwright searches when you use it (click, expect, count...)."
+  },
+  {
+    "id": "12-find-names",
+    "type": "concept",
+    "q": "Two ways to find the role and accessible name of an element?",
+    "a": "1) 'Pick locator' in codegen / UI mode / Inspector. 2) DevTools (F12) -> Elements -> Accessibility tab (Role + Name)."
+  }
+]

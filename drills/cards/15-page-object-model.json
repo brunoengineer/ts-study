@@ -1,0 +1,146 @@
+[
+  {
+    "id": "15-class-line",
+    "q": "First line of an exported page object class called LoginPage (end with the opening {).",
+    "a": "export class LoginPage {"
+  },
+  {
+    "id": "15-prop-page",
+    "q": "Declare the property `page` (of type Page) that can never be replaced.",
+    "a": "readonly page: Page;"
+  },
+  {
+    "id": "15-prop-locator",
+    "q": "Declare the property `loginButton` (of type Locator), read-only.",
+    "a": "readonly loginButton: Locator;"
+  },
+  {
+    "id": "15-constructor",
+    "q": "First line of a constructor that takes `page` of type Page (end with the opening {).",
+    "a": "constructor(page: Page) {"
+  },
+  {
+    "id": "15-set-page",
+    "q": "Inside the constructor: store the parameter `page` in the object.",
+    "a": "this.page = page;"
+  },
+  {
+    "id": "15-set-locator",
+    "q": "Inside the constructor: set `loginButton` to the button named 'Log in'.",
+    "a": "this.loginButton = page.getByRole('button', { name: 'Log in' });"
+  },
+  {
+    "id": "15-goto-method",
+    "q": "Write a goto() method on one line that opens '/login'.",
+    "a": "async goto(): Promise<void> { await this.page.goto('/login'); }",
+    "alt": ["async goto() { await this.page.goto('/login'); }"]
+  },
+  {
+    "id": "15-method-signature",
+    "q": "First line of an async method `login` that takes username and password (strings) and returns nothing (end with {).",
+    "a": "async login(username: string, password: string): Promise<void> {"
+  },
+  {
+    "id": "15-query-signature",
+    "q": "First line of an async method `getProductNames` that returns an array of strings (end with {).",
+    "a": "async getProductNames(): Promise<string[]> {"
+  },
+  {
+    "id": "15-new-page-object",
+    "q": "In a test: create `loginPage`, a LoginPage that wraps the test's page.",
+    "a": "const loginPage = new LoginPage(page);"
+  },
+  {
+    "id": "15-call-method",
+    "q": "In a test: log in with the page object `loginPage` as 'standard_user' / 'secret123'.",
+    "a": "await loginPage.login('standard_user', 'secret123');"
+  },
+  {
+    "id": "15-await-query",
+    "q": "In a test: store the result of `productsPage.getProductNames()` in `names`.",
+    "a": "const names = await productsPage.getProductNames();"
+  },
+  {
+    "id": "15-extends",
+    "q": "First line of an exported class CartPage that extends BasePage (end with {).",
+    "a": "export class CartPage extends BasePage {"
+  },
+  {
+    "id": "15-super",
+    "q": "First line inside the constructor of a class that extends BasePage (pass the page).",
+    "a": "super(page);"
+  },
+  {
+    "id": "15-component-ctor",
+    "q": "Inside ProductCard's constructor(root: Locator): set `price` to the element with class 'price' inside root.",
+    "a": "this.price = root.locator('.price');"
+  },
+  {
+    "id": "15-return-next",
+    "q": "Last line of openCart(): return a new CartPage for the same tab.",
+    "a": "return new CartPage(this.page);"
+  },
+  {
+    "id": "15-next-signature",
+    "q": "First line of an async method `checkout` that returns a CheckoutPage (end with {).",
+    "a": "async checkout(): Promise<CheckoutPage> {"
+  },
+  {
+    "id": "15-let-beforeeach",
+    "q": "In a describe: declare `productsPage` (type ProductsPage) to be created later in beforeEach.",
+    "a": "let productsPage: ProductsPage;"
+  },
+  {
+    "id": "15-import",
+    "q": "Import the class LoginPage from './pages/LoginPage'.",
+    "a": "import { LoginPage } from './pages/LoginPage';"
+  },
+  {
+    "id": "15-import-types",
+    "q": "Import the TYPES Locator and Page from Playwright (type-only import).",
+    "a": "import type { Locator, Page } from '@playwright/test';",
+    "alt": ["import type { Page, Locator } from '@playwright/test';", "import { type Locator, type Page } from '@playwright/test';"]
+  },
+  {
+    "id": "15-why",
+    "type": "concept",
+    "q": "Why use page objects?",
+    "a": "Each locator and flow is written once: a UI change is fixed in one class, tests read like steps (login, addToCart), and flows are reusable."
+  },
+  {
+    "id": "15-assertions-where",
+    "type": "concept",
+    "q": "Where should assertions live in a POM project?",
+    "a": "Mostly in the tests (the test decides what is correct). Page objects may have small reusable helpers like expectLoaded() and waits that finish an action."
+  },
+  {
+    "id": "15-component",
+    "type": "concept",
+    "q": "What is a component object, and what does its constructor receive?",
+    "a": "A class for a piece that repeats or appears on many pages (header, product card, table row). It receives a root Locator (or the page) and finds everything INSIDE it."
+  },
+  {
+    "id": "15-extends-vs-has",
+    "type": "concept",
+    "q": "BasePage vs Header: inheritance or composition?",
+    "a": "Pages EXTEND BasePage (they 'are' a page with page + header). The Header is a component stored IN a property (every page 'has' a header)."
+  },
+  {
+    "id": "15-not-in-pom",
+    "type": "concept",
+    "q": "Name 3 things that do NOT belong in a page object.",
+    "a": "Test data (usernames), test()/hooks, business assertions (expected totals), fixed waits (waitForTimeout)."
+  },
+  {
+    "id": "15-err-no-initializer",
+    "type": "concept",
+    "q": "Error: Property 'passwordInput' has no initializer and is not definitely assigned in the constructor. Fix?",
+    "a": "Set it in the constructor: this.passwordInput = page.getByLabel('Password');"
+  },
+  {
+    "id": "15-err-this",
+    "type": "concept",
+    "q": "Error: Cannot find name 'page'. Did you mean the instance member 'this.page'? Fix?",
+    "a": "Inside a method, use this.page (and this.someLocator): the page is stored in the object, not a local variable."
+  }
+]
