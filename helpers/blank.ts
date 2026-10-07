@@ -5,7 +5,7 @@
  * Example:  expect(typeof 42).toBe(___);   ->   expect(typeof 42).toBe('number');
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const ___: any = '___ (replace me with your answer)';
+export const message: any = 'string';
 
 /**
  * A reminder that you still have work to do.
