@@ -11,30 +11,30 @@ import { ___, todo } from '../../helpers/blank';
 
 test.describe('typeof', () => {
   test('1.1 🔮 typeof a string', () => {
-    expect(typeof 'standard_user').toBe(___);
+    expect(typeof 'standard_user').toBe('string');
   });
 
   test('1.2 🔮 typeof a whole number', () => {
-    expect(typeof 404).toBe(___);
+    expect(typeof 404).toBe('number');
   });
 
   test('1.3 🔮 typeof a decimal number', () => {
     // Careful: is there a different type for decimals?
-    expect(typeof 29.99).toBe(___);
+    expect(typeof 29.99).toBe('number');
   });
 
   test('1.4 🔮 typeof true', () => {
-    expect(typeof true).toBe(___);
+    expect(typeof true).toBe('boolean');
   });
 
   test('1.5 🔮 a variable with no value', () => {
     let token;
-    expect(typeof token).toBe(___);
-    expect(token).toBe(___);
+    expect(typeof token).toBe('undefined');
+    expect(token).toBe(undefined);
   });
 
   test('1.6 🔮 the famous bug', () => {
-    expect(typeof null).toBe(___);
+    expect(typeof null).toBe('object');
   });
 });
 
@@ -43,7 +43,7 @@ test.describe('const and let', () => {
     // Declare a constant called baseUrl, OF TYPE string, with the value 'http://localhost:3000'
     // ✍️ your code here
 
-    todo();
+    const baseUrl: string = 'http://localhost:3000';
     expect(baseUrl).toBe('http://localhost:3000');
   });
 
@@ -51,13 +51,13 @@ test.describe('const and let', () => {
     // Declare a constant called isHeadless, of type boolean, with the value true
     // ✍️ your code here
 
-    todo();
+    const isHeadless: boolean = true;
     expect(isHeadless).toBe(true);
   });
 
   test('1.9 🐛 this value needs to change', () => {
     // Run it and read the error (and the red squiggle). Then fix the declaration, not the assignment.
-    const counter = 0;
+    let counter = 0;
     counter = counter + 1;
     expect(counter).toBe(1);
   });
@@ -67,7 +67,10 @@ test.describe('const and let', () => {
     // Then add 1 to it THREE times using ++
     // ✍️ your code here
 
-    todo();
+    let retries: number = 0;
+    retries++;
+    retries++;
+    retries++;
     expect(retries).toBe(3);
   });
 
@@ -76,16 +79,16 @@ test.describe('const and let', () => {
     score += 5;
     score -= 3;
     score++;
-    expect(score).toBe(___);
+    expect(score).toBe(13);
   });
 
   test('1.12 🔮 scope', () => {
     const message = 'outside';
     if (true) {
       const message = 'inside';
-      expect(message).toBe(___);
+      expect(message).toBe('inside');
     }
-    expect(message).toBe(___);
+    expect(message).toBe('outside');
   });
 });
 
@@ -93,7 +96,7 @@ test.describe('types and annotations', () => {
   test('1.13 🐛 the type annotation is wrong (types only)', () => {
     // The test passes already! But VS Code shows a red squiggle (and check shows a type error).
     // Fix the TYPE ANNOTATION so TypeScript is happy too.
-    const port: string = 3000;
+    const port: number = 3000;
     expect(port).toBe(3000);
   });
 
@@ -101,7 +104,7 @@ test.describe('types and annotations', () => {
     // TypeScript inferred `status` as a number. Now someone tries to store a string in it.
     // Fix it by storing the NUMBER 200 instead of the string '200'.
     let status = 404;
-    status = '200';
+    status = 200;
     expect(status).toBe(200);
   });
 
@@ -110,7 +113,8 @@ test.describe('types and annotations', () => {
     // Then, on the next line, assign it the value 'admin'.
     // ✍️ your code here
 
-    todo();
+    let username: string;
+    username = 'admin';
     expect(username).toBe('admin');
   });
 
@@ -119,7 +123,7 @@ test.describe('types and annotations', () => {
     // Declare DEFAULT_TIMEOUT = 30 seconds in milliseconds. Use the _ separator for readability.
     // ✍️ your code here
 
-    todo();
+    const DEFAULT_TIMEOUT = 30_000;
     expect(DEFAULT_TIMEOUT).toBe(30000);
   });
 });
@@ -128,10 +132,10 @@ test.describe('comparisons', () => {
   test('1.17 🔮 strict equality', () => {
     const status: number = 200;
     const statusText: string = '200';
-    expect(status === 200).toBe(___);
+    expect(status === 200).toBe(true);
     // @ts-expect-error - TypeScript warns: a number and a string can never be strictly equal
-    expect(status === statusText).toBe(___);
-    expect(status !== 404).toBe(___);
+    expect(status === statusText).toBe(false);
+    expect(status !== 404).toBe(true);
   });
 
   test('1.18 🧪 write the assertions', () => {
@@ -142,9 +146,11 @@ test.describe('comparisons', () => {
     //  - user is 'standard_user'
     //  - loginAttempts is 3
     //  - isLocked is false
-    // ✍️ your code here
 
-    todo();
+    // ✍️ your code here
+    expect(user).toBe('standard_user');
+    expect(loginAttempts).toBe(3);
+    expect(isLocked).toBe(false);
   });
 
   test('1.19 🧪 assert the type', () => {
@@ -153,6 +159,6 @@ test.describe('comparisons', () => {
     // (Hint: what goes inside expect(...)? Not timeout itself...)
     // ✍️ your code here
 
-    todo();
+    expect(typeof timeout).toBe('number');
   });
 });

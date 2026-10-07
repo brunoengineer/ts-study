@@ -7,7 +7,7 @@
 // 🧪 Assert   -> write the missing expect(...) line, then delete the todo() line
 
 import { test, expect } from '@playwright/test';
-import { message, todo } from '../../helpers/blank';
+import { ___, todo } from '../../helpers/blank';
 
 test('0.1 🔮 replace the blank with true', () => {
   // Replace ___ with: true   (no quotes!)
